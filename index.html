@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T.E.A.M. | Tourism Eco-stay and Accommodation Movement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800;900&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="team.png">
+<style>
+/* =========================================
+   VARIABLES & RESET
+   ========================================= */
+:root {
+    --bg-dark: #0a1f14;        /* Deep, moody forest green from video */
+    --bg-dark-card: #112a1d;   /* Slightly lighter green for cards */
+    --bg-light: #f7f6f2;       /* Warm cream/off-white */
+    --text-light: #e2e8f0;
+    --text-dark: #1e293b;
+    --accent-orange: #c36a4f;  /* Terracotta accent */
+    --accent-hover: #a85942;
+    --dot-color: rgba(255, 255, 255, 0.03);
+    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Merriweather', serif;
+}
+html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+h1, h2, h3, h4, .heading { font-family: var(--font-heading); }
+a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.text-orange { color: var(--accent-orange); }
+.bg-light { background-color: var(--bg-light); color: var(--text-dark); }
+.bg-dark { background-color: var(--bg-dark); color: var(--text-light); }
+.dot-grid {
+    background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+.btn {
+    background-color: var(--accent-orange);
+    color: white;
+    border: none;
+    padding: 0.85rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+    text-align: center;
+}
+.btn:hover { background-color: var(--accent-hover); transform: translateY(-2px); }
+.section-padding { padding: 8rem 0; }
+.badge {
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+.badge.orange { color: var(--accent-orange); border-color: var(--accent-orange); background: transparent; }
+.badge.filled-orange { background-color: var(--accent-orange); color: white; border: none; }
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+nav {
+    position: fixed;
+    top: 0; width: 100%;
+    padding: 1.5rem 0;
+    z-index: 1000;
+    background-color: rgba(10, 31, 20, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+}
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; }
+.nav-links { display: flex; gap: 2.5rem; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;}
+.nav-links a:hover { color: var(--accent-orange); }
+
+/* =========================================
+   HERO SECTION & INTERACTIVE CAROUSEL
+   ========================================= */
+.hero {
+    height: 100vh;
+    min-height: 800px;
+    background: linear-gradient(to right, rgba(10, 31, 20, 0.95) 0%, rgba(10, 31, 20, 0.2) 100%),
+                url('terraces.png') center/cover;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-top: 80px;
+}
+.hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; }
+.hero-text h1 { font-size: clamp(3.5rem, 5vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; }
+.hero-text p { font-size: 1.1rem; opacity: 0.8; margin-bottom: 2rem; max-width: 450px; line-height: 1.8;}
+.hero-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+    transition: opacity 0.3s ease;
+}
+.hero-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+}
+.hero-header-text {
+    text-align: center;
+    flex-grow: 1;
+}
+.hero-kicker {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-light);
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.hero-header-text h3 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: white;
+}
+.hero-header-text p {
+    font-size: 0.85rem;
+    color: var(--accent-orange);
+    margin-top: 0.2rem;
+    margin-bottom: 0.8rem;
+}
+.hero-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    align-items: center;
+}
+.hero-dots .dot {
+    width: 6px;
+    height: 6px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+.hero-dots .dot.active {
+    width: 16px;
+    background: var(--accent-orange);
+    border-radius: 4px;
+}
+.carousel-nav {
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s;
+    color: rgba(255,255,255,0.5);
+    border-radius: 50%;
+}
+.carousel-nav:hover { color: white; background: rgba(255,255,255,0.1); }
+.card-list { margin-bottom: 1.5rem; }
+.card-list h4 {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-light); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.card-list h4 svg { width: 16px; height: 16px; color: var(--accent-orange); }
+.card-list ul li { font-size: 0.85rem; opacity: 0.7; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;}
+.card-list ul li::before { content: "•"; position: absolute; left: 0.5rem; color: var(--accent-orange); }
+.pills { display: flex; flex-wrap: wrap; gap: 0.5rem; padding-left: 1.5rem;}
+.pill { background: transparent; padding: 0; font-size: 0.85rem; opacity: 0.7; }
+.pill:not(:last-child)::after { content: ", "; }
+.price-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; font-size: 0.85rem;}
+.price-footer strong { color: var(--accent-orange); font-size: 1rem;}
+
+/* =========================================
+   TABS SECTION (Shared Styles)
+   ========================================= */
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-header h2 { font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 1rem; }
+.section-header p { max-width: 600px; margin: 0 auto; opacity: 0.7; }
+.tabs-container { display: grid; grid-template-columns: 320px 1fr; gap: 2.5rem; }
+.tab-menu { display: flex; flex-direction: column; gap: 0.5rem; }
+.tab-btn {
+    background: transparent; border: 1px solid transparent;
+    color: var(--text-light); text-align: left; padding: 1.25rem;
+    border-radius: 12px; cursor: pointer; transition: all 0.3s ease;
+    display: flex; align-items: center; gap: 1.2rem;
+}
+.tab-btn:hover { background: rgba(255,255,255,0.02); }
+.tab-btn.active { background: var(--bg-dark-card); border-color: rgba(255,255,255,0.05); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+.tab-icon {
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.03); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all 0.3s ease;
+}
+.tab-icon svg { width: 20px; height: 20px; opacity: 0.6; transition: all 0.3s ease; stroke: white; }
+.tab-btn.active .tab-icon { background: rgba(195, 106, 79, 0.1); }
+.tab-btn.active .tab-icon svg { opacity: 1; stroke: var(--accent-orange); }
+.tab-text { display: flex; flex-direction: column; }
+.tab-btn strong { font-size: 1.05rem; font-family: var(--font-heading);}
+.tab-btn span { font-size: 0.8rem; opacity: 0.5; margin-top: 0.2rem;}
+.tab-btn.active span { color: var(--accent-orange); opacity: 1;}
+.tab-content {
+    background: var(--bg-dark-card); border-radius: 16px; padding: 4rem;
+    border: 1px solid rgba(255,255,255,0.05); display: none;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+.tab-content.active { display: block; animation: fadeInRight 0.5s ease forwards; }
+@keyframes fadeInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+.tab-content h3 { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1.1;}
+.tab-content p { opacity: 0.8; margin-bottom: 2.5rem; line-height: 1.8; font-size: 1.05rem;}
+
+/* Food Tab Custom Split Layout */
+.food-tab-content { padding: 0; display: none; overflow: hidden; }
+.food-tab-content.active { display: flex; }
+.food-img-side { flex: 1; position: relative; min-height: 450px; }
+.food-text-side { flex: 1.2; padding: 4rem; display: flex; flex-direction: column; justify-content: center;}
+.food-text-side ul { margin-top: 2rem; }
+.food-text-side ul li { margin-bottom: 1rem; font-size: 0.95rem; opacity: 0.8; display: flex; align-items: center; gap: 12px;}
+.food-text-side ul li::before { content: "•"; color: var(--accent-orange); font-size: 1.5rem; }
+
+/* =========================================
+   ACCOMMODATION & EXPLORE
+   ========================================= */
+.explore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 350px)); gap: 2rem; justify-content: center; }
+.explore-card {
+    background: var(--bg-dark-card); border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: all 0.3s ease;
+}
+.explore-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); border-color: rgba(195,106,79,0.3);}
+.explore-card img { width: 100%; height: 350px; object-fit: cover; }
+.explore-footer { padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+
+/* =========================================
+   IMPACT SECTION
+   ========================================= */
+#impact {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    position: relative;
+}
+.impact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+.impact-text .kicker {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-orange);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: block;
+}
+.impact-text h2 {
+    font-size: clamp(3rem, 4vw, 4rem);
+    line-height: 1.1;
+    color: var(--bg-dark);
+    margin-bottom: 1.5rem;
+}
+.impact-text p {
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+.impact-text .quote {
+    font-style: italic;
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+.impact-card {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+.impact-card-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.impact-card-header span {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #94a3b8;
+}
+.impact-card-header h3 {
+    font-size: 2.5rem;
+    color: var(--bg-dark);
+    margin-top: 0.5rem;
+}
+.progress-bar-container {
+    display: flex;
+    height: 12px;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+}
+.pb-segment { height: 100%; }
+.pb-orange { width: 88%; background-color: var(--accent-orange); }
+.pb-dark { width: 7%; background-color: #112a1d; }
+.pb-grey { width: 5%; background-color: #94a3b8; }
+
+.impact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+.impact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.impact-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.impact-icon.orange { background: rgba(195, 106, 79, 0.1); color: var(--accent-orange); }
+.impact-icon.dark { background: #f1f5f9; color: #112a1d; }
+.impact-icon.grey { background: #f8fafc; color: #64748b; }
+
+.impact-details {
+    flex-grow: 1;
+}
+.impact-details h4 {
+    color: var(--bg-dark);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+.impact-details p {
+    color: #94a3b8;
+    font-size: 0.75rem;
+    margin: 0;
+    line-height: 1.4;
+}
+.impact-details .price {
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+}
+.impact-percent {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.impact-percent.orange { color: var(--accent-orange); }
+.impact-percent.dark { color: #112a1d; }
+.impact-percent.grey { color: #64748b; }
+
+.impact-footer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.impact-footer .dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-orange);
+    border-radius: 50%;
+}
+
+/* =========================================
+   HOST SECTION
+   ========================================= */
+.host {
+    height: 100vh;
+    min-height: 800px;
+    background: linear-gradient(to right, rgba(10, 31, 20, 0.95) 0%, rgba(10, 31, 20, 0.2) 100%),
+                url('terraces2.png') center/cover;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-top: 80px;
+}
+.host-section { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.host-image {
+    width: 100%; height: 650px; border-radius: 24px; object-fit: cover;
+    background: url('woven.png') center/cover;
+}
+.host-perks { margin: 3rem 0; }
+.perk { display: flex; gap: 1.5rem; margin-bottom: 2rem; align-items: flex-start;}
+.perk-icon { background: rgba(195, 106, 79, 0.1); color: var(--accent-orange); padding: 1rem; border-radius: 12px; }
+.perk h4 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.perk p { font-size: 0.9rem; opacity: 0.6; }
+
+/* =========================================
+   PRICE ESTIMATOR (Know Before You Go)
+   ========================================= */
+.estimator-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; }
+.est-panel {
+    background: rgba(255,255,255,0.02); border-radius: 16px; padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem;
+}
+.est-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); opacity: 0.6; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;}
+.stepper-row { display: flex; gap: 4rem; }
+.stepper-group label { display: block; font-size: 0.9rem; margin-bottom: 0.5rem; font-weight: 500;}
+.stepper { display: flex; align-items: center; gap: 1.5rem; background: var(--bg-dark-card); padding: 0.5rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.05);}
+.stepper button {
+    width: 36px; height: 36px; border-radius: 50%; border: none;
+    background: rgba(255,255,255,0.05); color: white; cursor: pointer; font-size: 1.2rem; transition: 0.2s;
+}
+.stepper button:hover { background: var(--accent-orange); }
+.stepper span { font-size: 1.2rem; font-weight: 600; min-width: 20px; text-align: center;}
+.est-list { display: flex; flex-direction: column; gap: 0.8rem; max-height: 300px; overflow-y: auto; padding-right: 1rem; }
+.est-list::-webkit-scrollbar { width: 8px; }
+.est-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 10px; }
+.est-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+.est-list::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+.est-item {
+    padding: 1.2rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+    cursor: pointer; transition: all 0.2s; background: var(--bg-dark-card);
+}
+.est-item:hover { border-color: rgba(255,255,255,0.3); }
+.est-item.selected { background: var(--accent-orange); border-color: var(--accent-orange); box-shadow: 0 10px 20px rgba(195,106,79,0.2);}
+.est-item strong { display: block; font-size: 1.05rem; margin-bottom: 0.2rem;}
+.est-item span { font-size: 0.8rem; opacity: 0.7; }
+.activities-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.receipt-card {
+    background: var(--bg-light); color: var(--text-dark); border-radius: 20px;
+    padding: 3rem 2rem; position: sticky; top: 120px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+.receipt-card h3 { text-align: center; font-size: 2.5rem; margin: 1rem 0; color: #0a1f14;}
+.receipt-list { margin-top: 2rem; border-top: 1px solid #e2e8f0; padding-top: 2rem; }
+.receipt-list li { display: flex; justify-content: space-between; margin-bottom: 1.5rem; align-items: flex-start;}
+.receipt-list li span:first-child { color: #475569; font-weight: 500; font-size: 0.95rem;}
+.receipt-list li span.val { color: #0a1f14; font-weight: 700; text-align: right;}
+
+/* =========================================
+   FORM & FOOTER
+   ========================================= */
+.form-card { background: white; padding: 4rem; border-radius: 24px; max-width: 900px; margin: 0 auto; box-shadow: 0 30px 60px rgba(0,0,0,0.2); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-size: 0.75rem; text-transform: uppercase; color: #64748b; letter-spacing: 1px; font-weight: 600;}
+.form-group input, .form-group select, .form-group textarea {
+    padding: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 1rem; background: #f8fafc; transition: all 0.3s;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent-orange); outline: none; box-shadow: 0 0 0 3px rgba(195,106,79,0.1);}
+.pill-checkboxes { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.pill-cb { padding: 0.6rem 1.2rem; border: 1px solid #cbd5e1; border-radius: 999px; font-size: 0.9rem; cursor: pointer; color: #64748b; transition: all 0.2s;}
+.pill-cb.active { background: var(--accent-orange); color: white; border-color: var(--accent-orange); }
+footer { padding: 6rem 0 3rem; border-top: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; background: var(--bg-dark);}
+.footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 6rem; z-index: 2; position: relative;}
+.footer-col h4 { color: var(--accent-orange); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 2rem; letter-spacing: 2px; font-weight: 600; font-family: var(--font-body);}
+.footer-col ul li { margin-bottom: 1.2rem; }
+.footer-col ul li a { font-size: 0.9rem; opacity: 0.6; transition: 0.2s; color: var(--text-light); }
+.footer-col ul li a:hover { opacity: 1; color: white; }
+.footer-watermark { font-size: clamp(6rem, 18vw, 22rem); font-family: var(--font-body); font-weight: 900; color: rgba(255,255,255,0.02); text-align: center; position: absolute; bottom: 4rem; left: 50%;
+    transform: translateX(-50%); width: 100%; pointer-events: none; line-height: 0.8; z-index: 1;}
+.footer-divider { border-top: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem; position: relative; z-index: 2;}
+.footer-bottom { display: flex; justify-content: space-between; font-size: 0.8rem; opacity: 0.5; position: relative; z-index: 2; color: var(--text-light);}
+@media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; margin-bottom: 6rem;}
+    .footer-watermark { bottom: 8rem; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+}
+
+/* =========================================
+   LOGIN / SIGN UP OVERLAY (IMPROVED DESIGN)
+   ========================================= */
+.auth-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background-color: rgba(248, 250, 252, 0.95); /* Slight transparency */
+    backdrop-filter: blur(8px); /* Smooth background blur */
+    z-index: 9999;
+    display: flex; justify-content: center; align-items: center;
+    font-family: var(--font-body); padding: 2rem;
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.auth-overlay.active-overlay {
+    opacity: 1; visibility: visible; pointer-events: auto;
+}
+.auth-card {
+    background: white; border-radius: 16px; padding: 3rem 2.5rem;
+    width: 100%; max-width: 400px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08); text-align: center;
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.auth-card.fade-in-up {
+    opacity: 1; transform: translateY(0);
+}
+.auth-logo { margin-bottom: 1.5rem; display: flex; justify-content: center; }
+.auth-logo svg { width: 42px; height: 42px; color: var(--accent-orange); }
+.auth-card h2 { color: #0f172a; font-size: 1.6rem; margin-bottom: 0.3rem; font-family: var(--font-body); font-weight: 700;}
+.auth-card p.subtitle { color: #64748b; font-size: 0.95rem; margin-bottom: 2rem; }
+.google-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 0.85rem; border: 1px solid #e2e8f0; border-radius: 8px;
+    background: white; color: #334155; font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; transition: 0.2s; margin-bottom: 1.5rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+.google-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
+.auth-divider {
+    display: flex; align-items: center; text-align: center; margin-bottom: 1.5rem;
+    color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
+}
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; border-bottom: 1px solid #e2e8f0; }
+.auth-divider::before { margin-right: .8em; }
+.auth-divider::after { margin-left: .8em; }
+.auth-form { display: flex; flex-direction: column; gap: 1.2rem; text-align: left; }
+.auth-form label { font-size: 0.85rem; color: #475569; font-weight: 500; }
+.auth-input {
+    width: 100%; padding: 0.85rem 1rem; border: 1px solid #cbd5e1;
+    border-radius: 8px; font-size: 0.95rem; background: #fff;
+    transition: 0.2s ease;
+}
+.auth-input:focus { outline: none; border-color: var(--accent-orange); box-shadow: 0 0 0 3px rgba(195,106,79,0.1); }
+.auth-submit {
+    width: 100%; padding: 1rem; background: #0f172a; color: white;
+    border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;
+    transition: 0.2s; margin-top: 0.5rem;
+}
+.auth-submit:hover { background: #1e293b; transform: translateY(-1px); }
+.auth-footer { margin-top: 1.8rem; font-size: 0.9rem; color: #64748b; font-weight: 500;}
+.auth-footer a { color: var(--accent-orange); font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.2s;}
+.auth-footer a:hover { color: var(--accent-hover); }
+.hidden-view { display: none !important; }
+</style>
+</head>
+<body>
+
+<div id="auth-overlay" class="auth-overlay">
+    
+    <div id="view-login" class="auth-card">
+        <div class="auth-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" transform="rotate(45 12 12)" />
+                <rect x="8" y="8" width="8" height="8" rx="1" transform="rotate(45 12 12)" />
+            </svg>
+        </div>
+        <h2>Welcome to T.E.A.M.</h2>
+        <p class="subtitle">Sign in to continue</p>
+        
+        <button class="google-btn" onclick="simulateGoogleLogin()">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Continue with Google
+        </button>
+        
+        <div class="auth-divider">OR</div>
+        
+        <form class="auth-form" onsubmit="handleLogin(event)">
+            <div>
+                <label>Email</label>
+                <input type="email" id="login-email" class="auth-input" placeholder="you@example.com" required>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" id="login-pass" class="auth-input" required>
+            </div>
+            <button type="submit" class="auth-submit">Sign in</button>
+        </form>
+        
+        <div class="auth-footer" style="display: flex; justify-content: space-between;">
+            <a onclick="alert('Presentation Mode: Password reset bypassed.')">Forgot password?</a>
+            <span>Need an account? <a onclick="switchAuthView('view-signup')">Sign up</a></span>
+        </div>
+    </div>
+
+    <div id="view-signup" class="auth-card hidden-view">
+        <div style="text-align:left; margin-bottom:1rem;">
+            <a onclick="switchAuthView('view-login')" style="color:#64748b; font-size:0.85rem; cursor:pointer;">&larr; Back to sign in</a>
+        </div>
+        <h2>Create your account</h2>
+        <p class="subtitle" style="margin-bottom: 1.5rem;"></p>
+        
+        <form class="auth-form" onsubmit="handleSignup(event)">
+            <div>
+                <label>Email</label>
+                <input type="email" id="signup-email" class="auth-input" placeholder="you@example.com" required>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" id="signup-pass" class="auth-input" placeholder="Min. 8 characters" required>
+            </div>
+            <div>
+                <label>Confirm Password</label>
+                <input type="password" id="signup-confirm" class="auth-input" required>
+            </div>
+            <button type="submit" class="auth-submit">Create account</button>
+        </form>
+    </div>
+
+    <div id="view-verify" class="auth-card hidden-view">
+        <div class="auth-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h2>Verify your email</h2>
+        <p class="subtitle">We've sent a 6-digit code to <br><strong id="verify-email-display"></strong></p>
+        
+        <form class="auth-form" onsubmit="handleVerify(event)">
+            <div>
+                <input type="number" class="auth-input" placeholder="Any code works!" style="text-align:center; letter-spacing: 3px; font-size: 1.1rem;" required>
+            </div>
+            <button type="submit" class="auth-submit">Verify email</button>
+        </form>
+        <div class="auth-footer">
+            Didn't receive the code? <a onclick="alert('New code sent!')">Resend</a>
+        </div>
+    </div>
+</div>
+
+<div id="account-overlay" class="auth-overlay" style="background-color: rgba(10, 31, 20, 0.98);">
+    <div class="auth-card hidden-view" id="view-portal" style="max-width: 600px; text-align: left; padding: 4rem;">
+        <div style="text-align: center; margin-bottom: 2.5rem;">
+            <span style="color:var(--accent-orange); font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; display:block; margin-bottom:0.5rem;">GUEST PORTAL</span>
+            <h2 style="font-size: 2.5rem; margin-bottom: 0;">Welcome Back</h2>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0;">
+            <div style="width: 50px; height: 50px; background: var(--bg-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-family: var(--font-heading);">
+                <span id="portal-initial">T</span>
+            </div>
+            <div>
+                <h3 style="color: #0f172a; margin: 0; font-size: 1.2rem;">My Profile & Booking History</h3>
+                <p style="color: #64748b; font-size: 0.85rem; margin: 0;" id="portal-email">user@email.com</p>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 2rem;">
+            <h4 style="color: #475569; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Account Settings</h4>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem;">
+                 <h5 style="color: #0f172a; margin-bottom: 0.5rem; font-size: 1rem;">Log Out</h5>
+                 <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 1.5rem;">Securely sign out of your T.E.A.M. account.</p>
+                 <button onclick="handleLogout()" style="background: white; border: 1px solid #cbd5e1; padding: 0.8rem 1.5rem; border-radius: 6px; color: #0f172a; font-weight: 600; cursor: pointer; transition: 0.2s;">Log Out</button>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+             <a href="#" onclick="closeAccountPortal()" style="color: var(--accent-orange); font-size: 0.95rem; font-weight: 600; text-decoration: none;">&larr; Return to Website</a>
+        </div>
+    </div>
+</div>
+
+<nav id="navbar">
+<div class="container nav-container">
+<div class="logo">T.E.A.M.</div>
+<div class="nav-links">
+<a href="#circuit">Circuit</a>
+<a href="#stays">Stays</a>
+<a href="#impact">Impact</a>
+<a href="#host">Host</a>
+<a href="#contact">Contact</a>
+<a href="#" id="nav-auth-btn" style="color: var(--accent-orange); display: flex; align-items: center; gap: 5px;">
+    Sign In
+</a>
+</div>
+</div>
+</nav>
+
+<section id="hero" class="hero dot-grid">
+<div class="container hero-grid">
+<div class="hero-text">
+<span class="badge">AI-Powered Local Travel</span>
+<h1>Your Budget.<br><span class="text-orange">Our Backyard.</span></h1>
+<p>Set your budget. Our engine bundles the perfect homestay, authentic activities, and a local guide — all within the BLISTT circuit of Benguet.</p>
+<a href="#circuit" style="font-weight: 600; border-bottom: 1px solid white; padding-bottom: 4px; opacity: 0.8;">Explore the BLISTT Circuit &rarr;</a>
+</div>
+<div class="hero-card" id="hero-carousel-card">
+<div class="hero-card-header">
+<div class="carousel-nav carousel-prev" onclick="changeHero(-1)">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+</div>
+<div class="hero-header-text">
+<span class="hero-kicker">MUNICIPALITY BUNDLE</span>
+<h3 id="hero-title">Baguio City</h3>
+<p id="hero-subtitle">Summer Capital of the Philippines</p>
+<div class="hero-dots" id="hero-dots">
+</div>
+</div>
+<div class="carousel-nav carousel-next" onclick="changeHero(1)">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+</div>
+</div>
+<div class="card-list">
+<h4>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+Where You'll Stay
+</h4>
+<ul id="hero-stays">
+<li>Log Cabin Hotel - Safari Baguio (₱2,300-₱4,600/night)</li>
+<li>CV Homestay Baguio (₱1,500-₱3,500/night)</li>
+<li>La Casa Jessonmar Homestay (₱2,000-₱4,000/night)</li>
+<li>German Guesthouse & Homestay (₱2,000-₱3,000/night)</li>
+</ul>
+</div>
+<div class="card-list">
+<h4>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+What You'll Do
+</h4>
+<div class="pills" id="hero-activities">
+<span class="pill">Baguio Botanical Garden</span>
+<span class="pill">Mines View Park</span>
+<span class="pill">Burnham Park</span>
+<span class="pill">Session Road Night Market</span>
+<span class="pill">The Mansion</span>
+</div>
+</div>
+<div class="price-footer">
+<span style="display:flex; align-items:center; gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span id="hero-guide">Baguio City Circuit Guide</span></span>
+<strong id="hero-price">₱1,500-₱4,600/night</strong>
+</div>
+<a href="#contact" class="btn" style="width: 100%; margin-top: 1.5rem;" id="hero-btn">Bundle My Baguio City Trip</a>
+</div>
+</div>
+</section>
+<section id="circuit" class="bg-dark dot-grid section-padding">
+<div class="container">
+<div class="section-header">
+<span class="badge orange">The BLISTT Circuit</span>
+<h2>Six Towns. One Thread.</h2>
+<p>Woven together by ancient trails and highland roads, the BLISTT municipalities offer a circuit of experiences found nowhere else on earth.</p>
+</div>
+<div class="tabs-container">
+<div class="tab-menu">
+<button class="tab-btn c-tab active" onclick="switchTab(event, 'c-baguio', 'c-tab', 'c-content')">
+<div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l-8 10h4l-4 8h16l-4-8h4z"/><path d="M12 20v4"/></svg></div>
+<div class="tab-text"><strong>Baguio</strong><span>Summer Capital of the Philippines</span></div>
+</button>
+<button class="tab-btn c-tab" onclick="switchTab(event, 'c-trinidad', 'c-tab', 'c-content')">
+<div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg></div>
+<div class="tab-text"><strong>La Trinidad</strong><span>Valley of Colors</span></div>
+</button>
+<button class="tab-btn c-tab" onclick="switchTab(event, 'c-itogon', 'c-tab', 'c-content')">
+<div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
+<div class="tab-text"><strong>Itogon</strong><span>The Land of Golden Opportunities</span></div>
+</button>
+<button class="tab-btn c-tab" onclick="switchTab(event, 'c-sablan', 'c-tab', 'c-content')">
+<div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6"/><circle cx="8" cy="10" r="3"/><circle cx="16" cy="10" r="3"/><circle cx="12" cy="16" r="3"/></svg></div>
+<div class="tab-text"><strong>Sablan</strong><span>Fruits Basket of Benguet</span></div>
+</button>
+<button class="tab-btn c-tab" onclick="switchTab(event, 'c-tuba', 'c-tab', 'c-content')">
+<div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg></div>
+<div class="tab-text"><strong>Tuba</strong><span>Cradle of Nature's Gift</span></div>
+</button>
+<button class="tab-btn c-tab" onclick="switchTab(event, 'c-tublay', 'c-tab', 'c-content')">
+<div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3l4 8 5-5 5 15H2L8 3z"/></svg></div>
+<div class="tab-text"><strong>Tublay</strong><span>The Land of Fascinating Caves</span></div>
+</button>
+</div>
+<div class="tab-content c-content active" id="c-baguio">
+<span class="badge orange" style="margin-bottom:1.5rem; display:flex; align-items:center; gap:5px; width:max-content;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> SUMMER CAPITAL OF THE PHILIPPINES</span>
+<h3>Baguio</h3>
+<p>The summer capital of the Philippines, nestled among towering pine trees.
+Experience the bustling night market, historic mansions, and the scent of pine in the highland breeze.</p>
+<div style="display:flex; gap:10px; margin-top:3rem;">
+<span class="badge" style="border-radius:20px; padding:0.6rem 1.2rem;">Mines View Park</span>
+<span class="badge" style="border-radius:20px; padding:0.6rem 1.2rem;">Igorot Stone Kingdom</span>
+<span class="badge" style="border-radius:20px; padding:0.6rem 1.2rem;">Burnham Park</span>
+</div>
+</div>
+<div class="tab-content c-content" id="c-trinidad"><h3>La Trinidad</h3><p>A vibrant valley where strawberry fields paint the landscape red.
+Home to the weaving communities and the iconic Valley of Colors mural walk.</p></div>
+<div class="tab-content c-content" id="c-itogon"><h3>Itogon</h3><p>Where the first rays of highland sun break through mountain peaks.
+Ancient gold mining trails lead to breathtaking vistas and untouched waterfalls.</p></div>
+<div class="tab-content c-content" id="c-sablan"><h3>Sablan</h3><p>Rolling hillsides covered in orchards and vegetable terraces.
+The breadbasket of Benguet where every meal comes from the soil beneath your feet.</p></div>
+<div class="tab-content c-content" id="c-tuba"><h3>Tuba</h3><p>The gateway municipality where fog blankets winding mountain roads.
+Pass through centuries-old pine forests on the legendary Kennon Road.</p></div>
+<div class="tab-content c-content" id="c-tublay"><h3>Tublay</h3><p>Deep in the highlands where Ibaloi traditions remain unbroken.
+Stone-walled terraces and ancestral homes tell stories spanning generations.</p></div>
+</div>
+</div>
+</section>
+<section id="stays" class="bg-light section-padding" style="border-top: 1px solid rgba(255,255,255,0.05); padding: 6rem 0;">
+<div class="container">
+<div class="section-header">
+<span class="text-orange" style="font-size:0.8rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:1rem;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:5px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+Accommodation
+</span>
+<h2 style="color: var(--bg-dark);">Where to Stay</h2>
+<p style="color: #64748b;">Hand-picked homestays, guesthouses, and farm stays across the BLISTT circuit. Experience authentic highland hospitality.</p>
+</div>
+<p style="text-align: center; color: #94a3b8; margin-top: 4rem; font-size:0.9rem;">Coming soon...</p>
+</div>
+</section>
+<section id="explore" class="bg-dark dot-grid section-padding">
+<div class="container">
+<div class="section-header">
+<h2>What to Explore</h2>
+<p>Explore guided tours, cultural experiences, adventure activities, and unique local attractions that make the highlands unforgettable.</p>
+</div>
+<div class="explore-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+<div class="explore-card" style="display: flex; flex-direction: column;" onclick="alert('Navigating to Kissing Clouds Agri Farm Details...')">
+<img src="kissingclouds.jpg" alt="Kissing Clouds Agri Farm" style="height: 250px;">
+<div style="padding: 1.5rem 1.5rem 0; flex-grow: 1;">
+<h4 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.3rem;">Kissing Clouds Agri Farm</h4>
+<p style="font-size: 0.85rem; opacity: 0.7;">Tuba</p>
+</div>
+<div class="explore-footer" style="margin-top: auto;">
+<span style="color: var(--accent-orange); font-weight: 600;">₱180-₱221</span>
+<span class="badge" style="margin:0; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem;">Available</span>
+</div>
+</div>
+<div class="explore-card" style="display: flex; flex-direction: column;" onclick="alert('Navigating to Strawberry Farm Picking...')">
+<img src="strawberry.jpg" alt="Strawberry Farm Picking" style="height: 250px;">
+<div style="padding: 1.5rem 1.5rem 0; flex-grow: 1;">
+<h4 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.3rem;">Strawberry Farm Picking</h4>
+<p style="font-size: 0.85rem; opacity: 0.7;">La Trinidad</p>
+</div>
+<div class="explore-footer" style="margin-top: auto;">
+<span style="color: var(--accent-orange); font-weight: 600;">₱150/pax</span>
+<span class="badge" style="margin:0; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem;">Available</span>
+</div>
+</div>
+<div class="explore-card" style="display: flex; flex-direction: column;" onclick="alert('Navigating to Mt. Ulap Trail Hike...')">
+<img src="mtulap.jpeg" alt="Mt. Ulap Trail Hike" style="height: 250px;">
+<div style="padding: 1.5rem 1.5rem 0; flex-grow: 1;">
+<h4 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.3rem;">Mt. Ulap Trail Hike</h4>
+<p style="font-size: 0.85rem; opacity: 0.7;">Itogon</p>
+</div>
+<div class="explore-footer" style="margin-top: auto;">
+<span style="color: var(--accent-orange); font-weight: 600;">₱800/pax</span>
+<span class="badge" style="margin:0; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem;">Available</span>
+</div>
+</div>
+<div class="explore-card" style="display: flex; flex-direction: column;" onclick="alert('Navigating to Burnham Park Boat Ride...')">
+<img src="boat.png" alt="Burnham Park Boat Ride" style="height: 250px;">
+<div style="padding: 1.5rem 1.5rem 0; flex-grow: 1;">
+<h4 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.3rem;">Burnham Park Boat Ride</h4>
+<p style="font-size: 0.85rem; opacity: 0.7;">Baguio City</p>
+</div>
+<div class="explore-footer" style="margin-top: auto;">
+<span style="color: var(--accent-orange); font-weight: 600;">₱100/pax</span>
+<span class="badge" style="margin:0; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem;">Available</span>
+</div>
+</div>
+<div class="explore-card" style="display: flex; flex-direction: column;" onclick="alert('Navigating to Tam-Awan Village...')">
+<img src="tam-awan-village.jpg" alt="Tam-Awan Village" style="height: 250px;">
+<div style="padding: 1.5rem 1.5rem 0; flex-grow: 1;">
+<h4 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.3rem;">Tam-Awan Village Cultural Tour</h4>
+<p style="font-size: 0.85rem; opacity: 0.7;">Baguio City</p>
+</div>
+<div class="explore-footer" style="margin-top: auto;">
+<span style="color: var(--accent-orange); font-weight: 600;">₱250/pax</span>
+<span class="badge" style="margin:0; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem;">Available</span>
+</div>
+</div>
+<div class="explore-card" style="display: flex; flex-direction: column;" onclick="alert('Navigating to Valley of Colors...')">
+<img src="valley.jpg" alt="Valley of Colors" style="height: 250px;">
+<div style="padding: 1.5rem 1.5rem 0; flex-grow: 1;">
+<h4 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.3rem;">Valley of Colors Mural Walk</h4>
+<p style="font-size: 0.85rem; opacity: 0.7;">La Trinidad</p>
+</div>
+<div class="explore-footer" style="margin-top: auto;">
+<span style="color: var(--accent-orange); font-weight: 600;">Free</span>
+<span class="badge" style="margin:0; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem;">Available</span>
+</div>
+</div>
+<div class="explore-card" style="display: flex; flex-direction: column;" onclick="alert('Navigating to Wright Park...')">
+<img src="horse.jpg" alt="Wright Park" style="height: 250px;">
+<div style="padding: 1.5rem 1.5rem 0; flex-grow: 1;">
+<h4 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.3rem;">Wright Park Horseback Riding</h4>
+<p style="font-size: 0.85rem; opacity: 0.7;">Baguio City</p>
+</div>
+<div class="explore-footer" style="margin-top: auto;">
+<span style="color: var(--accent-orange); font-weight: 600;">₱500/pax</span>
+<span class="badge" style="margin:0; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem;">Available</span>
+</div>
+</div>
+<div class="explore-card" style="display: flex; flex-direction: column;" onclick="alert('Navigating to Inabel Weaving...')">
+<img src="inavel.png" alt="Inabel Weaving Workshop" style="height: 250px;">
+<div style="padding: 1.5rem 1.5rem 0; flex-grow: 1;">
+<h4 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.3rem;">Inabel Weaving Workshop</h4>
+<p style="font-size: 0.85rem; opacity: 0.7;">La Trinidad</p>
+</div>
+<div class="explore-footer" style="margin-top: auto;">
+<span style="color: var(--accent-orange); font-weight: 600;">₱600/pax</span>
+<span class="badge" style="margin:0; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem;">Available</span>
+</div>
+</div>
+<div class="explore-card" style="display: flex; flex-direction: column;" onclick="alert('Navigating to Mt. Camisong...')">
+<img src="kamisong.jpg" alt="Mt. Camisong" style="height: 250px;">
+<div style="padding: 1.5rem 1.5rem 0; flex-grow: 1;">
+<h4 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.3rem;">Mt. Camisong Forest Trek</h4>
+<p style="font-size: 0.85rem; opacity: 0.7;">Tublay</p>
+</div>
+<div class="explore-footer" style="margin-top: auto;">
+<span style="color: var(--accent-orange); font-weight: 600;">₱400/pax</span>
+<span class="badge" style="margin:0; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem;">Available</span>
+</div>
+</div>
+<div class="explore-card" style="display: flex; flex-direction: column;" onclick="alert('Navigating to Session Road...')">
+<img src="session.png" alt="Session Road" style="height: 250px;">
+<div style="padding: 1.5rem 1.5rem 0; flex-grow: 1;">
+<h4 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.3rem;">Session Road Night Market</h4>
+<p style="font-size: 0.85rem; opacity: 0.7;">Baguio City</p>
+</div>
+<div class="explore-footer" style="margin-top: auto;">
+<span style="color: var(--accent-orange); font-weight: 600;">₱300/pax</span>
+<span class="badge" style="margin:0; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem;">Available</span>
+</div>
+</div>
+<div class="explore-card" style="display: flex; flex-direction: column;" onclick="alert('Navigating to Iyaman Farm...')">
+<img src="iyamanfarm.png" alt="Iyaman Farm" style="height: 250px;">
+<div style="padding: 1.5rem 1.5rem 0; flex-grow: 1;">
+<h4 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.3rem;">Farm Tourism at Iyaman</h4>
+<p style="font-size: 0.85rem; opacity: 0.7;">Itogon</p>
+</div>
+<div class="explore-footer" style="margin-top: auto;">
+<span style="color: var(--accent-orange); font-weight: 600;">₱350/pax</span>
+<span class="badge" style="margin:0; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem;">Available</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="food" class="bg-dark dot-grid section-padding" style="border-top: 1px solid rgba(255,255,255,0.05);">
+<div class="container">
+<div class="section-header">
+<span style="color:var(--accent-orange); font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; display:block; margin-bottom:1rem;">Taste of the Highlands</span>
+<h2 style="font-size:4rem; line-height:1.1;">Food That Carries<br><span class="text-orange">Centuries of Memory</span></h2>
+<p style="margin-top:1.5rem;">Every dish in Benguet is a living archive — smoked, fermented, foraged, and harvested from the same highlands for thousands of years.</p>
+</div>
+<div class="tabs-container">
+<div class="tab-menu">
+<button class="tab-btn f-tab active" onclick="switchTab(event, 'f-pinikpikan', 'f-tab', 'f-content')">
+<div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+<div class="tab-text"><strong>Pinikpikan</strong><span>The Ancestral Chicken</span></div>
+</button>
+<button class="tab-btn f-tab" onclick="switchTab(event, 'f-etag', 'f-tab', 'f-content')">
+<div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></div>
+<div class="tab-text"><strong>Etag</strong><span>The Smoked Heritage Meat</span></div>
+</button>
+<button class="tab-btn f-tab" onclick="switchTab(event, 'f-strawberries', 'f-tab', 'f-content')">
+<div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+<div class="tab-text"><strong>Highland Strawberries</strong><span>La Trinidad's Sweetest Gift</span></div>
+</button>
+</div>
+<div class="food-tab-content f-content active" id="f-pinikpikan">
+<div class="food-img-side" style="background: url('Pinikpikan-Wide-720x480.jpg') center/cover;">
+<span class="badge filled-orange" style="position: absolute; bottom: 20px; left: 20px;">Igorot Heritage Dish</span>
+</div>
+<div class="food-text-side">
+<h3>Pinikpikan</h3>
+<p class="text-orange" style="font-style: italic; margin-bottom: 1.5rem;">The Ancestral Chicken</p>
+<p>A sacred dish originating from the Igorot tribes of the Cordillera, prepared through a time-honored ritual passed down across generations.
+The slow-fire cooking draws out a deep, smoky broth unlike any other. More than a meal — it is ceremony.</p>
+<ul><li>Cooked over open wood fire</li><li>Served with highland vegetables</li><li>Deeply ceremonial in origin</li></ul>
+</div>
+</div>
+<div class="food-tab-content f-content" id="f-etag">
+<div class="food-img-side" style="background: url('etag.jpg') center/cover;"></div>
+<div class="food-text-side">
+<h3>Etag</h3><p class="text-orange" style="font-style:italic;">The Smoked Heritage Meat</p>
+<p style="margin-top:1rem;">Traditional slow-cured pork from the Cordillera highlands. Salted slabs of pork are smoked over burning alnos wood.
+The longer the aging, the deeper the flavor.</p>
+<ul><li>Smoked over alnos hardwood</li><li>Aged for weeks to months</li></ul>
+</div>
+</div>
+<div class="food-tab-content f-content" id="f-strawberries">
+<div class="food-img-side" style="background: url('https://images.unsplash.com/photo-1518635017498-87f514b751ba?auto=format&fit=crop&w=800&q=80') center/cover;"></div>
+<div class="food-text-side">
+<h3>Highland Strawberries</h3><p class="text-orange" style="font-style:italic;">La Trinidad's Sweetest Gift</p>
+<p style="margin-top:1rem;">Grown in the cool, fog-kissed soil of La Trinidad Valley.
+Benguet strawberries are celebrated across the Philippines for their exceptional sweetness and tartness.</p>
+<ul><li>Best season: November to February</li><li>Pick-your-own at La Trinidad Farm</li></ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="impact" class="section-padding" style="background-color: var(--bg-light); color: var(--text-dark); position: relative;">
+    <div class="container impact-grid">
+        <div class="impact-text">
+            <span class="kicker" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-orange); font-weight: 600; margin-bottom: 1rem; display: block;">Sustainability Tracker</span>
+            <h2 style="font-size: clamp(3rem, 4vw, 4rem); line-height: 1.1; color: var(--bg-dark); margin-bottom: 1.5rem; font-family: var(--font-heading);">Where Your Pesos<br><span class="text-orange">Plant Seeds</span></h2>
+            <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 1.5rem;">Transparency is the purest trail. See exactly where every peso of your travel budget goes — most of it stays right where it should.</p>
+            <p class="quote" style="font-style: italic; color: #94a3b8; font-size: 0.95rem;">"Every journey should leave the land better than you found it."</p>
+        </div>
+        
+        <div class="impact-card" style="background: white; border-radius: 20px; padding: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
+            <div class="impact-card-header" style="text-align: center; margin-bottom: 2rem;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #94a3b8;">Sample Budget</span>
+                <h3 style="font-size: 2.5rem; color: var(--bg-dark); margin-top: 0.5rem; font-family: var(--font-body); font-weight: 800;">₱3,500</h3>
+            </div>
+            
+            <div class="progress-bar-container" style="display: flex; height: 12px; border-radius: 999px; overflow: hidden; margin-bottom: 3rem;">
+                <div class="pb-segment pb-orange" style="height: 100%; width: 88%; background-color: var(--accent-orange);"></div>
+                <div class="pb-segment pb-dark" style="height: 100%; width: 7%; background-color: #112a1d;"></div>
+                <div class="pb-segment pb-grey" style="height: 100%; width: 5%; background-color: #94a3b8;"></div>
+            </div>
+            
+            <div class="impact-list" style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid #f1f5f9;">
+                <div class="impact-item" style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="impact-icon orange" style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: rgba(195, 106, 79, 0.1); color: var(--accent-orange);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                    </div>
+                    <div class="impact-details" style="flex-grow: 1;">
+                        <h4 style="color: var(--bg-dark); font-family: var(--font-body); font-size: 0.95rem; margin-bottom: 0.2rem;">Directly to Host Family</h4>
+                        <p style="color: #94a3b8; font-size: 0.75rem; margin: 0; line-height: 1.4;">Cayamanda Family Homestay, Itogon</p>
+                        <p class="price" style="color: #64748b; font-weight: 600; font-size: 0.8rem; margin-top: 0.2rem; margin-bottom: 0;">₱3,080</p>
+                    </div>
+                    <div class="impact-percent orange" style="font-weight: 700; font-size: 1.1rem; color: var(--accent-orange);">88%</div>
+                </div>
+                
+                <div class="impact-item" style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="impact-icon dark" style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #f1f5f9; color: #112a1d;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <div class="impact-details" style="flex-grow: 1;">
+                        <h4 style="color: var(--bg-dark); font-family: var(--font-body); font-size: 0.95rem; margin-bottom: 0.2rem;">Trail Preservation Fund</h4>
+                        <p style="color: #94a3b8; font-size: 0.75rem; margin: 0; line-height: 1.4;">Itogon Trail & Heritage Conservation</p>
+                        <p class="price" style="color: #64748b; font-weight: 600; font-size: 0.8rem; margin-top: 0.2rem; margin-bottom: 0;">₱245</p>
+                    </div>
+                    <div class="impact-percent dark" style="font-weight: 700; font-size: 1.1rem; color: #112a1d;">7%</div>
+                </div>
+                
+                <div class="impact-item" style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="impact-icon grey" style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #f8fafc; color: #64748b;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <div class="impact-details" style="flex-grow: 1;">
+                        <h4 style="color: var(--bg-dark); font-family: var(--font-body); font-size: 0.95rem; margin-bottom: 0.2rem;">Platform Maintenance</h4>
+                        <p style="color: #94a3b8; font-size: 0.75rem; margin: 0; line-height: 1.4;">Operations, tech, and local partnerships</p>
+                        <p class="price" style="color: #64748b; font-weight: 600; font-size: 0.8rem; margin-top: 0.2rem; margin-bottom: 0;">₱175</p>
+                    </div>
+                    <div class="impact-percent grey" style="font-weight: 700; font-size: 1.1rem; color: #64748b;">5%</div>
+                </div>
+            </div>
+            
+            <div class="impact-footer" style="text-align: center; font-size: 0.75rem; color: #94a3b8; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <span class="dot" style="width: 6px; height: 6px; background-color: var(--accent-orange); border-radius: 50%;"></span> Real-time transparency for every booking
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="host" class="bg-dark dot-grid section-padding" style="border-top: 1px solid rgba(255,255,255,0.05); background: linear-gradient(rgba(10, 20, 10, 0.8), rgba(10, 20, 10, 0.8)), url('terraces2.png');">
+<div class="container host-section">
+<div>
+<span style="color:var(--accent-orange); font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; display:block; margin-bottom:1.5rem;">Become a T.E.A.M. Host</span>
+<h2 style="font-size: clamp(3rem, 5vw, 4rem); margin-bottom: 1.5rem; line-height: 1.1;">Open Your Door<br><span class="text-orange">to the Clouds.</span></h2>
+<p style="opacity: 0.8; margin-bottom: 3rem; font-size:1.1rem; line-height:1.8;">Turn your spare room into a sanctuary for sustainable travelers and keep the highland heritage breathing.
+Join the ancestral network.</p>
+<div class="host-perks">
+<div class="perk">
+<div class="perk-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+<div><h4 style="color:white;">Earn on Your Terms</h4><p>Set your own rates. Keep 88% of every booking.</p></div>
+</div>
+<div class="perk">
+<div class="perk-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+<div><h4 style="color:white;">Verified Travelers</h4><p>Every guest is screened. Your home, your rules.</p></div>
+</div>
+<div class="perk">
+<div class="perk-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+<div><h4 style="color:white;">Heritage Recognition</h4><p>Earn Community Impact badges that grow over time.</p></div>
+</div>
+</div>
+<button class="btn">Join the Ancestral Network &rarr;</button>
+</div>
+<img class="host-image" src="woven.png" alt="Woven Fabric">
+</div>
+</section>
+<section id="estimator" class="bg-dark dot-grid section-padding" style="border-top: 1px solid rgba(255,255,255,0.05);">
+<div class="container">
+<div class="section-header">
+<span class="badge" style="border-color:var(--accent-orange); color:var(--accent-orange); display:flex; align-items:center; gap:5px; margin:0 auto 1.5rem; width:max-content;">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+INSTANT PRICE ESTIMATOR
+</span>
+<h2>Know Before You Go</h2>
+<p>Build your trip and see a live cost breakdown — no surprises, full transparency.</p>
+</div>
+<div class="estimator-grid">
+<div>
+<div class="est-panel">
+<span class="est-title">Trip Details</span>
+<div class="stepper-row">
+<div class="stepper-group">
+<label><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2" style="vertical-align:middle; margin-right:5px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Guests</label>
+<div class="stepper"><button onclick="updateCalc('guests', -1)">-</button><span id="calc-guests">2</span><button onclick="updateCalc('guests', 1)">+</button></div>
+</div>
+<div class="stepper-group">
+<label><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2" style="vertical-align:middle; margin-right:5px;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> Nights</label>
+<div class="stepper"><button onclick="updateCalc('nights', -1)">-</button><span id="calc-nights">2</span><button onclick="updateCalc('nights', 1)">+</button></div>
+</div>
+</div>
+</div>
+<div class="est-panel">
+<span class="est-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2" style="margin-right:5px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Choose Homestay</span>
+<div class="est-list">
+<div class="est-item calc-stay selected" onclick="selectStay(this, 2300, 4600, 'Log Cabin Hotel - Safari Baguio')">
+<strong>Log Cabin Hotel - Safari Baguio</strong><span>Baguio City • ₱2,300-₱4,600/night</span>
+</div>
+<div class="est-item calc-stay" onclick="selectStay(this, 1500, 3500, 'CV Homestay Baguio')">
+<strong>CV Homestay Baguio</strong><span>Baguio City • ₱1,500-₱3,500/night</span>
+</div>
+<div class="est-item calc-stay" onclick="selectStay(this, 2000, 4000, 'La Casa Jessonmar Homestay')">
+<strong>La Casa Jessonmar Homestay</strong><span>Baguio City • ₱2,000-₱4,000/night</span>
+</div>
+<div class="est-item calc-stay" onclick="selectStay(this, 2000, 3000, 'German Guesthouse & Homestay')">
+<strong>German Guesthouse & Homestay</strong><span>Baguio City • ₱2,000-₱3,000/night</span>
+</div>
+<div class="est-item calc-stay" onclick="selectStay(this, 1200, 4200, 'Wanay’s Rocky Mountain Homestay')">
+<strong>Wanay's Rocky Mountain Homestay</strong><span>La Trinidad • ₱1,200-₱4,200/night</span>
+</div>
+<div class="est-item calc-stay" onclick="selectStay(this, 2000, 3500, 'The Midway Homestay')">
+<strong>The Midway Homestay</strong><span>La Trinidad • ₱2,000-₱3,500/night</span>
+</div>
+<div class="est-item calc-stay" onclick="selectStay(this, 1500, 3000, 'Forest Valley Homestay')">
+<strong>Forest Valley Homestay</strong><span>La Trinidad • ₱1,500-₱3,000/night</span>
+</div>
+<div class="est-item calc-stay" onclick="selectStay(this, 2500, 6000, 'Iyaman Farm Homestay')">
+<strong>Iyaman Farm Homestay</strong><span>Itogon • ₱2,500-₱6,000/night</span>
+</div>
+<div class="est-item calc-stay" onclick="selectStay(this, 2000, 4000, 'Mountain Oasis Homestay')">
+<strong>Mountain Oasis Homestay</strong><span>Tublay • ₱2,000-₱4,000/night</span>
+</div>
+</div>
+</div>
+<div class="est-panel">
+<span class="est-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2" style="margin-right:5px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Add Activities</span>
+<div class="activities-grid">
+<div class="est-item calc-act" onclick="toggleActivity(this, 150)">
+<strong>Strawberry Farm Picking</strong><span>₱150/pax • La Trinidad</span>
+</div>
+<div class="est-item calc-act" onclick="toggleActivity(this, 800)">
+<strong>Mt. Ulap Trail Hike</strong><span>₱800/pax • Itogon</span>
+</div>
+<div class="est-item calc-act" onclick="toggleActivity(this, 100)">
+<strong>Burnham Park Boat Ride</strong><span>₱100/pax • Baguio City</span>
+</div>
+<div class="est-item calc-act" onclick="toggleActivity(this, 250)">
+<strong>Tam-Awan Village Cultural Tour</strong><span>₱250/pax • Baguio City</span>
+</div>
+<div class="est-item calc-act" onclick="toggleActivity(this, 0)">
+<strong>Valley of Colors Mural Walk</strong><span>Free • La Trinidad</span>
+</div>
+<div class="est-item calc-act" onclick="toggleActivity(this, 500)">
+<strong>Wright Park Horseback Riding</strong><span>₱500/pax • Baguio City</span>
+</div>
+<div class="est-item calc-act" onclick="toggleActivity(this, 600)">
+<strong>Inabel Weaving Workshop</strong><span>₱600/pax • La Trinidad</span>
+</div>
+<div class="est-item calc-act" onclick="toggleActivity(this, 400)">
+<strong>Mt. Camisong Forest Trek</strong><span>₱400/pax • Tublay</span>
+</div>
+<div class="est-item calc-act" onclick="toggleActivity(this, 300)">
+<strong>Session Road Night Market</strong><span>₱300/pax • Baguio City</span>
+</div>
+<div class="est-item calc-act" onclick="toggleActivity(this, 350)">
+<strong>Farm Tourism at Iyaman</strong><span>₱350/pax • Itogon</span>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div class="receipt-card">
+<span style="display:block; text-align:center; font-size:0.8rem; letter-spacing:1px; color:#94a3b8; text-transform:uppercase;">Estimated Total</span>
+<h3 id="rec-total">₱8,000 - ₱12,600</h3>
+<p style="text-align:center; font-size:0.9rem; color:#64748b; margin-top:-10px;" id="rec-per-pax">₱4,000 - ₱6,300 per person</p>
+<div class="receipt-list">
+<ul>
+<li>
+<span>Accommodation (<span id="rec-n-text">2N</span>)<br><span style="font-size:0.8rem; font-weight:normal;" id="rec-stay-name">Log Cabin Hotel - Safari Baguio</span></span>
+<span class="val" id="rec-stay-price">₱4,600 - ₱9,200</span>
+</li>
+<li>
+<span>Local Guide (<span id="rec-g-text">2 days</span>)</span>
+<span class="val" id="rec-guide-price">₱2,400</span>
+</li>
+<li>
+<span>Inter-town Transport<br><span style="font-size:0.8rem; font-weight:normal;">Est. ₱500/night</span></span>
+<span class="val" id="rec-trans-price">₱1,000</span>
+</li>
+<li id="rec-act-row" style="display:none;">
+<span>Activities (<span id="rec-act-count">0</span> selected)</span>
+<span class="val" id="rec-act-price">₱0</span>
+</li>
+</ul>
+</div>
+<ul style="font-size:0.8rem; color:#94a3b8; margin: 2rem 0; padding-left:1.2rem; list-style-type: circle; opacity: 0.8;">
+<li style="margin-bottom:5px;">Rates are estimates. Actual prices may vary by season.</li>
+<li style="margin-bottom:5px;">Guide fee covers 1 local guide for the group.</li>
+<li>Activities marked free have no entry fee but may need transport.</li>
+</ul>
+<a href="#contact" class="btn" style="width:100%; padding:1.2rem; font-size:1.1rem; display:block; text-align:center; box-sizing:border-box;">Book This Bundle</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="contact" class="bg-light section-padding">
+<div class="container">
+<div class="section-header">
+<span class="text-orange" style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; display:block; margin-bottom:1rem; font-weight:600;">Plan Your Highland Journey</span>
+<h2 style="color: var(--bg-dark); font-size:3.5rem;">Bundle My Trip</h2>
+<p style="color: #64748b;">Tell us your dream itinerary — we'll hand-match you with the perfect homestays, local guides, and activities across the BLISTT circuit.</p>
+</div>
+<div class="form-card">
+    <form class="form-grid" id="bundle-form" onsubmit="handleBundleSubmit(event)">
+<div class="form-group"><label>Your Name</label><input type="text" placeholder="e.g. Maria Santos" required></div>
+<div class="form-group"><label>Email Address</label><input type="email" placeholder="you@email.com" required></div>
+<div class="form-group full"><label>Phone / Whatsapp</label><input type="tel" placeholder="+63 9XX XXX XXXX" required></div>
+<div class="form-group full">
+<label style="display:flex; align-items:center; gap:5px;">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+Which stops interest you?
+</label>
+<div class="pill-checkboxes">
+<span class="pill-cb" onclick="this.classList.toggle('active')">Baguio City</span>
+<span class="pill-cb" onclick="this.classList.toggle('active')">La Trinidad</span>
+<span class="pill-cb" onclick="this.classList.toggle('active')">Itogon</span>
+<span class="pill-cb" onclick="this.classList.toggle('active')">Sablan</span>
+<span class="pill-cb" onclick="this.classList.toggle('active')">Tuba</span>
+<span class="pill-cb" onclick="this.classList.toggle('active')">Tublay</span>
+</div>
+<span style="font-size:0.75rem; color:var(--accent-orange); margin-top:5px;">Select at least one municipality</span>
+</div>
+<div class="form-group">
+<label style="display:flex; align-items:center; gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> Nights</label>
+<select>
+<option>2 nights</option>
+<option>3 nights</option>
+<option>4 nights</option>
+<option>5 nights</option>
+<option>6 nights</option>
+<option>7 nights</option>
+</select>
+</div>
+<div class="form-group">
+<label style="display:flex; align-items:center; gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Guests</label>
+<select>
+<option>1 guest</option>
+<option>2 guests</option>
+<option>3 guests</option>
+<option>4 guests</option>
+<option>5 guests</option>
+<option>6 guests</option>
+<option>7 guests</option>
+<option>8 guests</option>
+</select>
+</div>
+<div class="form-group full">
+<label>Budget (₱ Total)</label>
+<input type="number" placeholder="e.g. 15000" required>
+</div>
+<div class="form-group full">
+<label>Any special requests?</label>
+<textarea rows="4" placeholder="Dietary needs, mobility requirements, specific activities..."></textarea>
+</div>
+<div class="form-group full" style="margin-top: 1.5rem;">
+    <button type="submit" class="btn" style="background:#dbb5a7; color:white; width:100%; padding:1.2rem; font-size:1.1rem; display:flex; align-items:center; justify-content:center; gap:10px;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+Send My Bundle Request
+</button>
+</div>
+</form>
+</div>
+</div>
+</section>
+<footer class="dot-grid">
+<div class="container">
+<div style="text-align: center; margin-bottom: 4rem; position: relative; z-index: 2;">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5">
+<polygon points="12,2 22,12 12,22 2,12" />
+<polygon points="12,7 17,12 12,17 7,12" />
+</svg>
+</div>
+<div class="footer-grid">
+<div class="footer-col">
+<h4>Discover</h4>
+<ul>
+<li><a href="#circuit">Baguio</a></li><li><a href="#circuit">La Trinidad</a></li><li><a href="#circuit">Itogon</a></li>
+<li><a href="#circuit">Sablan</a></li><li><a href="#circuit">Tuba</a></li><li><a href="#circuit">Tublay</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Experience</h4>
+<ul><li><a href="#stays">Homestays</a></li><li><a href="#explore">Guided Trails</a></li><li><a href="#">Farm Visits</a></li><li><a href="#">Weaving Workshops</a></li><li><a href="#food">Local Cuisine</a></li></ul>
+</div>
+<div class="footer-col">
+<h4>Community</h4>
+<ul><li><a href="#host">Become a Host</a></li><li><a href="#impact">Impact Reports</a></li><li><a href="#">Local Guides</a></li><li><a href="#">Partnerships</a></li></ul>
+</div>
+<div class="footer-col">
+<h4>Platform</h4>
+<ul><li><a href="#">About T.E.A.M.</a></li><li><a href="#">How It Works</a></li><li><a href="#">Sustainability</a></li><li><a href="#contact">Contact</a></li></ul>
+</div>
+</div>
+<div class="footer-divider"></div>
+<div class="footer-bottom">
+<span>© 2026 Project T.E.A.M. — Tourism Eco-stay and Accommodation Movement.</span>
+<span>Built with care for the BLISTT communities.</span>
+</div>
+</div>
+
+<div class="footer-watermark">T.E.A.M.</div>
+</footer>
+<script>
+// 1. Sticky Navbar Effect
+window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+        nav.style.backgroundColor = 'rgba(10, 31, 20, 0.98)';
+        nav.style.padding = '1rem 0';
+    } else {
+        nav.style.backgroundColor = 'rgba(10, 31, 20, 0.8)';
+        nav.style.padding = '1.5rem 0';
+    }
+});
+
+// 2. Universal Tab Switching Logic
+function switchTab(event, targetId, tabClass, contentClass) {
+    document.querySelectorAll('.' + tabClass).forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.' + contentClass).forEach(content => content.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    document.getElementById(targetId).classList.add('active');
+}
+
+// 3. Hero Carousel Interactive Logic
+const heroData = [
+    {
+        title: "Baguio City", sub: "Summer Capital of the Philippines", price: "₱1,500-₱4,600/night", guide: "Baguio City Circuit Guide",
+        stays: ["Log Cabin Hotel - Safari Baguio (₱2,300-₱4,600/night)", "CV Homestay Baguio (₱1,500-₱3,500/night)", "La Casa Jessonmar Homestay (₱2,000-₱4,000/night)", "German Guesthouse & Homestay (₱2,000-₱3,000/night)"],
+        acts: ["Baguio Botanical Garden", "Mines View Park", "Burnham Park", "Session Road Night Market", "The Mansion", "Wright Park Horseback Riding"]
+    },
+    {
+        title: "La Trinidad", sub: "Valley of Colors", price: "₱1,200-₱4,200/night", guide: "La Trinidad Valley Guide",
+        stays: ["Wanay’s Rocky Mountain Homestay (₱1,200-₱4,200/night)", "The Midway Homestay (₱2,000-₱3,500/night)", "Forest Valley Homestay (₱1,500-₱3,000/night)"],
+        acts: ["La Trinidad Strawberry Farm", "Valley of Colors Mural Walk", "Inabel Weaving Workshop"]
+    },
+    {
+        title: "Itogon", sub: "The Land of Golden Opportunities", price: "₱2,500-₱6,000/night", guide: "Itogon Highland Guide",
+        stays: ["Iyaman Farm Homestay (₱2,500-₱6,000/night)"],
+        acts: ["Mt. Ulap Trail Hike", "Farm Tourism at Iyaman", "Hot Springs Visit"]
+    },
+    {
+        title: "Sablan", sub: "Fruits Basket of Benguet", price: "₱1,500-₱3,000/night", guide: "Sablan Eco Guide",
+        stays: ["Sablan Nature Lodge (₱1,500-₱3,000/night)"],
+        acts: ["Sablan Waterfalls Adventure", "Fruit Picking", "Eco-Trail Trekking"]
+    },
+    {
+        title: "Tuba", sub: "Cradle of Nature's Gift", price: "₱1,500-₱4,000/night", guide: "Tuba Nature Guide",
+        stays: ["Kissing Clouds Agri Farm (₱1,500-₱3,000/night)", "Tuba Mountain Lodge (₱2,000-₱4,000/night)"],
+        acts: ["Kissing Clouds Farm Tour", "Kennon Road Viewpoint", "Mt. Cabuyao Hike"]
+    },
+    {
+        title: "Tublay", sub: "The Land of Fascinating Caves", price: "₱1,000-₱4,000/night", guide: "Tublay Highland Guide",
+        stays: ["Mountain Oasis Homestay (₱2,000-₱4,000/night)", "Tublay Daily Homestay (₱1,000-₱2,000/night)"],
+        acts: ["Mt. Camisong Forest Trek", "Benguet Coffee Tasting", "Cave Exploration"]
+    }
+];
+
+document.addEventListener("DOMContentLoaded", () => {
+    const dotsContainer = document.getElementById('hero-dots');
+    if (dotsContainer) {
+        dotsContainer.innerHTML = heroData.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}"></span>`).join('');
+    }
+});
+
+let currentHeroIndex = 0;
+function changeHero(dir) {
+    currentHeroIndex = (currentHeroIndex + dir + heroData.length) % heroData.length;
+    const d = heroData[currentHeroIndex];
+    document.getElementById('hero-title').innerText = d.title;
+    document.getElementById('hero-subtitle').innerText = d.sub;
+    document.getElementById('hero-price').innerText = d.price;
+    document.getElementById('hero-guide').innerText = d.guide;
+    document.getElementById('hero-btn').innerText = `Bundle My ${d.title} Trip`;
+    document.getElementById('hero-stays').innerHTML = d.stays.map(s => `<li>${s}</li>`).join('');
+    document.getElementById('hero-activities').innerHTML = d.acts.map(a => `<span class="pill">${a}</span>`).join('');
+    
+    const dots = document.querySelectorAll('#hero-dots .dot');
+    if (dots.length > 0) {
+        dots.forEach((dot, index) => {
+            if (index === currentHeroIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+}
+
+// 4. Interactive Price Estimator Logic
+let estState = {
+    guests: 2,
+    nights: 2,
+    stayMin: 2300, stayMax: 4600, stayName: 'Log Cabin Hotel - Safari Baguio',
+    guidePerDay: 1200, transPerNight: 500,
+    activitiesTotal: 0, actCount: 0
+};
+function updateCalc(type, val) {
+    if (type === 'guests') { estState.guests = Math.max(1, Math.min(10, estState.guests + val)); }
+    if (type === 'nights') { estState.nights = Math.max(1, Math.min(14, estState.nights + val)); }
+    document.getElementById(`calc-${type}`).innerText = estState[type];
+    renderReceipt();
+}
+function selectStay(element, min, max, name) {
+    document.querySelectorAll('.calc-stay').forEach(el => el.classList.remove('selected'));
+    element.classList.add('selected');
+    estState.stayMin = min; estState.stayMax = max; estState.stayName = name;
+    renderReceipt();
+}
+function toggleActivity(element, price) {
+    element.classList.toggle('selected');
+    if (element.classList.contains('selected')) {
+        estState.activitiesTotal += price; estState.actCount++;
+    } else {
+        estState.activitiesTotal -= price; estState.actCount--;
+    }
+    renderReceipt();
+}
+function renderReceipt() {
+    const { guests, nights, stayMin, stayMax, stayName, guidePerDay, transPerNight, activitiesTotal, actCount } = estState;
+    const totalStayMin = stayMin * nights;
+    const totalStayMax = stayMax * nights;
+    const totalGuide = guidePerDay * nights;
+    const totalTrans = transPerNight * nights;
+    const totalActs = activitiesTotal * guests;
+    const grandMin = totalStayMin + totalGuide + totalTrans + totalActs;
+    const grandMax = totalStayMax + totalGuide + totalTrans + totalActs;
+    const fmt = (num) => "₱" + num.toLocaleString();
+    
+    document.getElementById('rec-n-text').innerText = `${nights}N`;
+    document.getElementById('rec-g-text').innerText = `${nights} days`;
+    document.getElementById('rec-stay-name').innerText = stayName;
+    document.getElementById('rec-stay-price').innerText = `${fmt(totalStayMin)} - ${fmt(totalStayMax)}`;
+    document.getElementById('rec-guide-price').innerText = fmt(totalGuide);
+    document.getElementById('rec-trans-price').innerText = fmt(totalTrans);
+    
+    const actRow = document.getElementById('rec-act-row');
+    if (actCount > 0) {
+        actRow.style.display = 'flex';
+        document.getElementById('rec-act-count').innerText = actCount;
+        document.getElementById('rec-act-price').innerText = fmt(totalActs);
+    } else {
+        actRow.style.display = 'none';
+    }
+    document.getElementById('rec-total').innerText = `${fmt(grandMin)} - ${fmt(grandMax)}`;
+    document.getElementById('rec-per-pax').innerText = `${fmt(Math.round(grandMin / guests))} - ${fmt(Math.round(grandMax / guests))} per person`;
+}
+renderReceipt();
+
+
+// =========================================
+// FORM SUBMIT SIMULATION (NEW)
+// =========================================
+function handleBundleSubmit(e) {
+    e.preventDefault(); // Prevents the page from reloading
+    
+    // Find the submit button to change its text
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
+    const originalHTML = btn.innerHTML;
+    const originalBg = btn.style.background;
+    
+    // Change button to show success temporarily
+    btn.innerHTML = "✅ Request Sent Successfully!";
+    btn.style.background = "#34A853"; // Google green
+    
+    // Show an alert and reset the form after a tiny delay
+    setTimeout(() => {
+        alert("Success! Your itinerary request has been sent to our local guides. We will email your confirmed bundle shortly.");
+        
+        // Clear all text inputs
+        form.reset(); 
+        
+        // Clear the destination pill selections
+        document.querySelectorAll('.pill-cb').forEach(p => p.classList.remove('active'));
+        
+        // Revert button back to normal so it can be used again
+        btn.innerHTML = originalHTML;
+        btn.style.background = originalBg;
+    }, 500);
+}
+
+
+// =========================================
+// UPDATED AUTHENTICATION LOGIC (WITH ANIMATIONS)
+// =========================================
+
+const authOverlay = document.getElementById('auth-overlay');
+const accountOverlay = document.getElementById('account-overlay');
+const navAuthBtn = document.getElementById('nav-auth-btn');
+let currentUserEmail = "";
+
+// Check Auth State on Load
+document.addEventListener("DOMContentLoaded", () => {
+    checkAuthState();
+});
+
+function checkAuthState() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const savedEmail = localStorage.getItem('userEmail');
+
+    if (isLoggedIn === 'true') {
+        // Logged In State
+        authOverlay.classList.remove('active-overlay');
+        accountOverlay.classList.remove('active-overlay');
+        document.body.style.overflow = 'auto';
+
+        navAuthBtn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            My Profile
+        `;
+        
+        document.getElementById('portal-email').innerText = savedEmail;
+        document.getElementById('portal-initial').innerText = savedEmail.charAt(0).toUpperCase();
+
+        navAuthBtn.onclick = (e) => {
+            e.preventDefault();
+            document.body.style.overflow = 'hidden'; 
+            accountOverlay.classList.add('active-overlay');
+            
+            const portalView = document.getElementById('view-portal');
+            portalView.classList.remove('hidden-view');
+            setTimeout(() => portalView.classList.add('fade-in-up'), 10);
+        };
+
+    } else {
+        // Logged Out State
+        accountOverlay.classList.remove('active-overlay');
+        document.body.style.overflow = 'hidden'; 
+        
+        // Trigger the initial fade in for the login screen
+        authOverlay.classList.add('active-overlay');
+        switchAuthView('view-login');
+
+        navAuthBtn.innerHTML = "Sign In";
+        navAuthBtn.onclick = (e) => {
+            e.preventDefault();
+            document.body.style.overflow = 'hidden';
+            authOverlay.classList.add('active-overlay');
+            switchAuthView('view-login');
+        };
+    }
+}
+
+function closeAccountPortal() {
+    const portalView = document.getElementById('view-portal');
+    portalView.classList.remove('fade-in-up'); // animate out
+    accountOverlay.classList.remove('active-overlay'); // fade background
+    
+    setTimeout(() => {
+        portalView.classList.add('hidden-view');
+        document.body.style.overflow = 'auto';
+    }, 300);
+}
+
+function switchAuthView(viewId) {
+    // Instantly hide current views and remove animation classes
+    ['view-login', 'view-signup', 'view-verify'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) {
+            el.classList.add('hidden-view');
+            el.classList.remove('fade-in-up');
+        }
+    });
+
+    // Show target view and trigger smooth slide-up animation
+    const target = document.getElementById(viewId);
+    if(target) {
+        target.classList.remove('hidden-view');
+        // Small delay allows the browser to register the element before animating
+        setTimeout(() => {
+            target.classList.add('fade-in-up');
+        }, 10);
+    }
+}
+
+function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const pass = document.getElementById('login-pass').value;
+
+    const storedEmail = localStorage.getItem('regEmail');
+    const storedPass = localStorage.getItem('regPass');
+
+    if ((email === storedEmail && pass === storedPass) || (email === "test@team.com" && pass === "password")) {
+        loginSuccess(email);
+    } else {
+        alert("Invalid credentials. Try test@team.com / password, or Sign Up first.");
+    }
+}
+
+function handleSignup(e) {
+    e.preventDefault();
+    const email = document.getElementById('signup-email').value;
+    const pass = document.getElementById('signup-pass').value;
+    const confirm = document.getElementById('signup-confirm').value;
+
+    if (pass !== confirm) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    localStorage.setItem('regEmail', email);
+    localStorage.setItem('regPass', pass);
+    currentUserEmail = email;
+
+    document.getElementById('verify-email-display').innerText = email;
+    switchAuthView('view-verify');
+}
+
+function handleVerify(e) {
+    e.preventDefault();
+    loginSuccess(currentUserEmail);
+}
+
+function simulateGoogleLogin() {
+    loginSuccess("guest@google.com");
+}
+
+function loginSuccess(email) {
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('userEmail', email);
+
+    document.querySelectorAll('.auth-input').forEach(input => input.value = '');
+
+    checkAuthState();
+    window.scrollTo(0, 0); 
+}
+
+function handleLogout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userEmail');
+    checkAuthState(); 
+}
+</script>
+</body>
+</html>

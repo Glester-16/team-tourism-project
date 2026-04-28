@@ -482,11 +482,6 @@ footer { padding: 6rem 0 3rem; border-top: 1px solid rgba(255,255,255,0.05); pos
     transform: translateX(-50%); width: 100%; pointer-events: none; line-height: 0.8; z-index: 1;}
 .footer-divider { border-top: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem; position: relative; z-index: 2;}
 .footer-bottom { display: flex; justify-content: space-between; font-size: 0.8rem; opacity: 0.5; position: relative; z-index: 2; color: var(--text-light);}
-@media (max-width: 900px) {
-    .footer-grid { grid-template-columns: 1fr 1fr; margin-bottom: 6rem;}
-    .footer-watermark { bottom: 8rem; }
-    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
-}
 
 /* =========================================
    LOGIN / SIGN UP OVERLAY (IMPROVED DESIGN)
@@ -551,122 +546,192 @@ footer { padding: 6rem 0 3rem; border-top: 1px solid rgba(255,255,255,0.05); pos
 .auth-footer a { color: var(--accent-orange); font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.2s;}
 .auth-footer a:hover { color: var(--accent-hover); }
 .hidden-view { display: none !important; }
+
+/* =========================================
+   MOBILE RESPONSIVENESS FIXES
+   ========================================= */
+@media (max-width: 900px) {
+    /* General Grids to 1 Column */
+    .hero-grid, 
+    .tabs-container, 
+    .host-section, 
+    .estimator-grid, 
+    .form-grid, 
+    .impact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2.5rem;
+    }
+
+    /* Navbar Fixes */
+    .nav-container { flex-direction: column; gap: 1rem; }
+    .nav-links { flex-wrap: wrap; justify-content: center; gap: 1rem; font-size: 0.8rem; }
+    nav { padding: 1rem 0 !important; }
+
+    /* Hero Fixes */
+    .hero { height: auto; min-height: auto; padding-top: 160px; padding-bottom: 4rem; }
+    .hero-text h1 { font-size: clamp(2.5rem, 8vw, 3.5rem); }
+    .hero-text p { font-size: 1rem; }
+    
+    /* Tabs Fixes */
+    .tab-menu { flex-direction: row; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; }
+    .tab-btn { min-width: 250px; flex-shrink: 0; scroll-snap-align: start; }
+    .tab-menu::-webkit-scrollbar { height: 6px; }
+    .tab-menu::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+    .tab-menu::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+    .tab-content { padding: 2rem 1.5rem; }
+
+    /* Food Tabs Specific Fix */
+    .food-tab-content.active { flex-direction: column; }
+    .food-img-side { min-height: 250px; width: 100%; }
+    .food-text-side { padding: 2rem 1.5rem; }
+
+    /* Impact Section Fixes */
+    .impact-card { padding: 2rem 1.5rem; }
+    .impact-card-header h3 { font-size: 2rem; }
+    .impact-item { flex-direction: column; text-align: center; gap: 0.5rem; }
+    .impact-icon { margin: 0 auto; }
+    .impact-details { width: 100%; }
+    .progress-bar-container { margin-bottom: 2rem; }
+
+    /* Host Section Fixes */
+    .host { height: auto; min-height: auto; padding: 4rem 0; }
+    .host-image { height: 350px; }
+    
+    /* Estimator Fixes */
+    .stepper-row { flex-direction: column; gap: 1.5rem; }
+    .receipt-card { position: static; margin-top: 1rem; padding: 2rem 1.5rem; }
+    .activities-grid { grid-template-columns: 1fr; }
+
+    /* Form Fixes */
+    .form-card { padding: 2rem 1.5rem; }
+    
+    /* Auth Overlays */
+    .auth-card { padding: 2.5rem 1.5rem; width: 90%; }
+    
+    /* Footer Fixes */
+    .footer-grid { grid-template-columns: 1fr 1fr; margin-bottom: 4rem; }
+    .footer-watermark { bottom: 8rem; font-size: clamp(3rem, 15vw, 6rem); }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+}
+
+/* Extra small phones */
+@media (max-width: 500px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-text h1 { font-size: 2.5rem; }
+    .section-header h2 { font-size: 2.2rem; }
+    .impact-text h2 { font-size: 2.2rem; }
+    .auth-card h2 { font-size: 1.4rem; }
+}
 </style>
 </head>
 <body>
-
 <div id="auth-overlay" class="auth-overlay">
-    
-    <div id="view-login" class="auth-card">
-        <div class="auth-logo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="3" y="3" width="18" height="18" rx="2" transform="rotate(45 12 12)" />
-                <rect x="8" y="8" width="8" height="8" rx="1" transform="rotate(45 12 12)" />
-            </svg>
-        </div>
-        <h2>Welcome to T.E.A.M.</h2>
-        <p class="subtitle">Sign in to continue</p>
-        
-        <button class="google-btn" onclick="simulateGoogleLogin()">
-            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-            Continue with Google
-        </button>
-        
-        <div class="auth-divider">OR</div>
-        
-        <form class="auth-form" onsubmit="handleLogin(event)">
-            <div>
-                <label>Email</label>
-                <input type="email" id="login-email" class="auth-input" placeholder="you@example.com" required>
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="password" id="login-pass" class="auth-input" required>
-            </div>
-            <button type="submit" class="auth-submit">Sign in</button>
-        </form>
-        
-        <div class="auth-footer" style="display: flex; justify-content: space-between;">
-            <a onclick="alert('Presentation Mode: Password reset bypassed.')">Forgot password?</a>
-            <span>Need an account? <a onclick="switchAuthView('view-signup')">Sign up</a></span>
-        </div>
-    </div>
 
-    <div id="view-signup" class="auth-card hidden-view">
-        <div style="text-align:left; margin-bottom:1rem;">
-            <a onclick="switchAuthView('view-login')" style="color:#64748b; font-size:0.85rem; cursor:pointer;">&larr; Back to sign in</a>
-        </div>
-        <h2>Create your account</h2>
-        <p class="subtitle" style="margin-bottom: 1.5rem;"></p>
-        
-        <form class="auth-form" onsubmit="handleSignup(event)">
-            <div>
-                <label>Email</label>
-                <input type="email" id="signup-email" class="auth-input" placeholder="you@example.com" required>
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="password" id="signup-pass" class="auth-input" placeholder="Min. 8 characters" required>
-            </div>
-            <div>
-                <label>Confirm Password</label>
-                <input type="password" id="signup-confirm" class="auth-input" required>
-            </div>
-            <button type="submit" class="auth-submit">Create account</button>
-        </form>
-    </div>
-
-    <div id="view-verify" class="auth-card hidden-view">
-        <div class="auth-logo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
-        <h2>Verify your email</h2>
-        <p class="subtitle">We've sent a 6-digit code to <br><strong id="verify-email-display"></strong></p>
-        
-        <form class="auth-form" onsubmit="handleVerify(event)">
-            <div>
-                <input type="number" class="auth-input" placeholder="Any code works!" style="text-align:center; letter-spacing: 3px; font-size: 1.1rem;" required>
-            </div>
-            <button type="submit" class="auth-submit">Verify email</button>
-        </form>
-        <div class="auth-footer">
-            Didn't receive the code? <a onclick="alert('New code sent!')">Resend</a>
-        </div>
-    </div>
+<div id="view-login" class="auth-card">
+<div class="auth-logo">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+<rect x="3" y="3" width="18" height="18" rx="2" transform="rotate(45 12 12)" />
+<rect x="8" y="8" width="8" height="8" rx="1" transform="rotate(45 12 12)" />
+</svg>
 </div>
+<h2>Welcome to T.E.A.M.</h2>
+<p class="subtitle">Sign in to continue</p>
 
+<button class="google-btn" onclick="simulateGoogleLogin()">
+<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+Continue with Google
+</button>
+
+<div class="auth-divider">OR</div>
+
+<form class="auth-form" onsubmit="handleLogin(event)">
+<div>
+<label>Email</label>
+<input type="email" id="login-email" class="auth-input" placeholder="you@example.com" required>
+</div>
+<div>
+<label>Password</label>
+<input type="password" id="login-pass" class="auth-input" required>
+</div>
+<button type="submit" class="auth-submit">Sign in</button>
+</form>
+
+<div class="auth-footer" style="display: flex; justify-content: space-between;">
+<a onclick="alert('Presentation Mode: Password reset bypassed.')">Forgot password?</a>
+<span>Need an account? <a onclick="switchAuthView('view-signup')">Sign up</a></span>
+</div>
+</div>
+<div id="view-signup" class="auth-card hidden-view">
+<div style="text-align:left; margin-bottom:1rem;">
+<a onclick="switchAuthView('view-login')" style="color:#64748b; font-size:0.85rem; cursor:pointer;">&larr; Back to sign in</a>
+</div>
+<h2>Create your account</h2>
+<p class="subtitle" style="margin-bottom: 1.5rem;"></p>
+
+<form class="auth-form" onsubmit="handleSignup(event)">
+<div>
+<label>Email</label>
+<input type="email" id="signup-email" class="auth-input" placeholder="you@example.com" required>
+</div>
+<div>
+<label>Password</label>
+<input type="password" id="signup-pass" class="auth-input" placeholder="Min. 8 characters" required>
+</div>
+<div>
+<label>Confirm Password</label>
+<input type="password" id="signup-confirm" class="auth-input" required>
+</div>
+<button type="submit" class="auth-submit">Create account</button>
+</form>
+</div>
+<div id="view-verify" class="auth-card hidden-view">
+<div class="auth-logo">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+</div>
+<h2>Verify your email</h2>
+<p class="subtitle">We've sent a 6-digit code to <br><strong id="verify-email-display"></strong></p>
+
+<form class="auth-form" onsubmit="handleVerify(event)">
+<div>
+<input type="number" class="auth-input" placeholder="Any code works!" style="text-align:center; letter-spacing: 3px; font-size: 1.1rem;" required>
+</div>
+<button type="submit" class="auth-submit">Verify email</button>
+</form>
+<div class="auth-footer">
+Didn't receive the code? <a onclick="alert('New code sent!')">Resend</a>
+</div>
+</div>
+</div>
 <div id="account-overlay" class="auth-overlay" style="background-color: rgba(10, 31, 20, 0.98);">
-    <div class="auth-card hidden-view" id="view-portal" style="max-width: 600px; text-align: left; padding: 4rem;">
-        <div style="text-align: center; margin-bottom: 2.5rem;">
-            <span style="color:var(--accent-orange); font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; display:block; margin-bottom:0.5rem;">GUEST PORTAL</span>
-            <h2 style="font-size: 2.5rem; margin-bottom: 0;">Welcome Back</h2>
-        </div>
-        
-        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0;">
-            <div style="width: 50px; height: 50px; background: var(--bg-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-family: var(--font-heading);">
-                <span id="portal-initial">T</span>
-            </div>
-            <div>
-                <h3 style="color: #0f172a; margin: 0; font-size: 1.2rem;">My Profile & Booking History</h3>
-                <p style="color: #64748b; font-size: 0.85rem; margin: 0;" id="portal-email">user@email.com</p>
-            </div>
-        </div>
-
-        <div style="margin-bottom: 2rem;">
-            <h4 style="color: #475569; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Account Settings</h4>
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem;">
-                 <h5 style="color: #0f172a; margin-bottom: 0.5rem; font-size: 1rem;">Log Out</h5>
-                 <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 1.5rem;">Securely sign out of your T.E.A.M. account.</p>
-                 <button onclick="handleLogout()" style="background: white; border: 1px solid #cbd5e1; padding: 0.8rem 1.5rem; border-radius: 6px; color: #0f172a; font-weight: 600; cursor: pointer; transition: 0.2s;">Log Out</button>
-            </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 2rem;">
-             <a href="#" onclick="closeAccountPortal()" style="color: var(--accent-orange); font-size: 0.95rem; font-weight: 600; text-decoration: none;">&larr; Return to Website</a>
-        </div>
-    </div>
+<div class="auth-card hidden-view" id="view-portal" style="max-width: 600px; text-align: left; padding: 4rem;">
+<div style="text-align: center; margin-bottom: 2.5rem;">
+<span style="color:var(--accent-orange); font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; display:block; margin-bottom:0.5rem;">GUEST PORTAL</span>
+<h2 style="font-size: 2.5rem; margin-bottom: 0;">Welcome Back</h2>
 </div>
 
+<div style="display: flex; align-items: center; gap: 15px; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0;">
+<div style="width: 50px; height: 50px; background: var(--bg-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-family: var(--font-heading);">
+<span id="portal-initial">T</span>
+</div>
+<div>
+<h3 style="color: #0f172a; margin: 0; font-size: 1.2rem;">My Profile & Booking History</h3>
+<p style="color: #64748b; font-size: 0.85rem; margin: 0;" id="portal-email">user@email.com</p>
+</div>
+</div>
+<div style="margin-bottom: 2rem;">
+<h4 style="color: #475569; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Account Settings</h4>
+<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem;">
+<h5 style="color: #0f172a; margin-bottom: 0.5rem; font-size: 1rem;">Log Out</h5>
+<p style="color: #64748b; font-size: 0.85rem; margin-bottom: 1.5rem;">Securely sign out of your T.E.A.M. account.</p>
+<button onclick="handleLogout()" style="background: white; border: 1px solid #cbd5e1; padding: 0.8rem 1.5rem; border-radius: 6px; color: #0f172a; font-weight: 600; cursor: pointer; transition: 0.2s;">Log Out</button>
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 2rem;">
+<a href="#" onclick="closeAccountPortal()" style="color: var(--accent-orange); font-size: 0.95rem; font-weight: 600; text-decoration: none;">&larr; Return to Website</a>
+</div>
+</div>
+</div>
 <nav id="navbar">
 <div class="container nav-container">
 <div class="logo">T.E.A.M.</div>
@@ -677,12 +742,11 @@ footer { padding: 6rem 0 3rem; border-top: 1px solid rgba(255,255,255,0.05); pos
 <a href="#host">Host</a>
 <a href="#contact">Contact</a>
 <a href="#" id="nav-auth-btn" style="color: var(--accent-orange); display: flex; align-items: center; gap: 5px;">
-    Sign In
+Sign In
 </a>
 </div>
 </div>
 </nav>
-
 <section id="hero" class="hero dot-grid">
 <div class="container hero-grid">
 <div class="hero-text">
@@ -997,73 +1061,72 @@ Benguet strawberries are celebrated across the Philippines for their exceptional
 </div>
 </div>
 </section>
-
 <section id="impact" class="section-padding" style="background-color: var(--bg-light); color: var(--text-dark); position: relative;">
-    <div class="container impact-grid">
-        <div class="impact-text">
-            <span class="kicker" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-orange); font-weight: 600; margin-bottom: 1rem; display: block;">Sustainability Tracker</span>
-            <h2 style="font-size: clamp(3rem, 4vw, 4rem); line-height: 1.1; color: var(--bg-dark); margin-bottom: 1.5rem; font-family: var(--font-heading);">Where Your Pesos<br><span class="text-orange">Plant Seeds</span></h2>
-            <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 1.5rem;">Transparency is the purest trail. See exactly where every peso of your travel budget goes — most of it stays right where it should.</p>
-            <p class="quote" style="font-style: italic; color: #94a3b8; font-size: 0.95rem;">"Every journey should leave the land better than you found it."</p>
-        </div>
-        
-        <div class="impact-card" style="background: white; border-radius: 20px; padding: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
-            <div class="impact-card-header" style="text-align: center; margin-bottom: 2rem;">
-                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #94a3b8;">Sample Budget</span>
-                <h3 style="font-size: 2.5rem; color: var(--bg-dark); margin-top: 0.5rem; font-family: var(--font-body); font-weight: 800;">₱3,500</h3>
-            </div>
-            
-            <div class="progress-bar-container" style="display: flex; height: 12px; border-radius: 999px; overflow: hidden; margin-bottom: 3rem;">
-                <div class="pb-segment pb-orange" style="height: 100%; width: 88%; background-color: var(--accent-orange);"></div>
-                <div class="pb-segment pb-dark" style="height: 100%; width: 7%; background-color: #112a1d;"></div>
-                <div class="pb-segment pb-grey" style="height: 100%; width: 5%; background-color: #94a3b8;"></div>
-            </div>
-            
-            <div class="impact-list" style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid #f1f5f9;">
-                <div class="impact-item" style="display: flex; align-items: center; gap: 1rem;">
-                    <div class="impact-icon orange" style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: rgba(195, 106, 79, 0.1); color: var(--accent-orange);">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
-                    </div>
-                    <div class="impact-details" style="flex-grow: 1;">
-                        <h4 style="color: var(--bg-dark); font-family: var(--font-body); font-size: 0.95rem; margin-bottom: 0.2rem;">Directly to Host Family</h4>
-                        <p style="color: #94a3b8; font-size: 0.75rem; margin: 0; line-height: 1.4;">Cayamanda Family Homestay, Itogon</p>
-                        <p class="price" style="color: #64748b; font-weight: 600; font-size: 0.8rem; margin-top: 0.2rem; margin-bottom: 0;">₱3,080</p>
-                    </div>
-                    <div class="impact-percent orange" style="font-weight: 700; font-size: 1.1rem; color: var(--accent-orange);">88%</div>
-                </div>
-                
-                <div class="impact-item" style="display: flex; align-items: center; gap: 1rem;">
-                    <div class="impact-icon dark" style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #f1f5f9; color: #112a1d;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    </div>
-                    <div class="impact-details" style="flex-grow: 1;">
-                        <h4 style="color: var(--bg-dark); font-family: var(--font-body); font-size: 0.95rem; margin-bottom: 0.2rem;">Trail Preservation Fund</h4>
-                        <p style="color: #94a3b8; font-size: 0.75rem; margin: 0; line-height: 1.4;">Itogon Trail & Heritage Conservation</p>
-                        <p class="price" style="color: #64748b; font-weight: 600; font-size: 0.8rem; margin-top: 0.2rem; margin-bottom: 0;">₱245</p>
-                    </div>
-                    <div class="impact-percent dark" style="font-weight: 700; font-size: 1.1rem; color: #112a1d;">7%</div>
-                </div>
-                
-                <div class="impact-item" style="display: flex; align-items: center; gap: 1rem;">
-                    <div class="impact-icon grey" style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #f8fafc; color: #64748b;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                    </div>
-                    <div class="impact-details" style="flex-grow: 1;">
-                        <h4 style="color: var(--bg-dark); font-family: var(--font-body); font-size: 0.95rem; margin-bottom: 0.2rem;">Platform Maintenance</h4>
-                        <p style="color: #94a3b8; font-size: 0.75rem; margin: 0; line-height: 1.4;">Operations, tech, and local partnerships</p>
-                        <p class="price" style="color: #64748b; font-weight: 600; font-size: 0.8rem; margin-top: 0.2rem; margin-bottom: 0;">₱175</p>
-                    </div>
-                    <div class="impact-percent grey" style="font-weight: 700; font-size: 1.1rem; color: #64748b;">5%</div>
-                </div>
-            </div>
-            
-            <div class="impact-footer" style="text-align: center; font-size: 0.75rem; color: #94a3b8; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <span class="dot" style="width: 6px; height: 6px; background-color: var(--accent-orange); border-radius: 50%;"></span> Real-time transparency for every booking
-            </div>
-        </div>
-    </div>
-</section>
+<div class="container impact-grid">
+<div class="impact-text">
+<span class="kicker" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-orange); font-weight: 600; margin-bottom: 1rem; display: block;">Sustainability Tracker</span>
+<h2 style="font-size: clamp(3rem, 4vw, 4rem); line-height: 1.1; color: var(--bg-dark); margin-bottom: 1.5rem; font-family: var(--font-heading);">Where Your Pesos<br><span class="text-orange">Plant Seeds</span></h2>
+<p style="color: #64748b; font-size: 1.1rem; margin-bottom: 1.5rem;">Transparency is the purest trail.
+See exactly where every peso of your travel budget goes — most of it stays right where it should.</p>
+<p class="quote" style="font-style: italic; color: #94a3b8; font-size: 0.95rem;">"Every journey should leave the land better than you found it."</p>
+</div>
 
+<div class="impact-card" style="background: white; border-radius: 20px; padding: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
+<div class="impact-card-header" style="text-align: center; margin-bottom: 2rem;">
+<span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #94a3b8;">Sample Budget</span>
+<h3 style="font-size: 2.5rem; color: var(--bg-dark); margin-top: 0.5rem; font-family: var(--font-body); font-weight: 800;">₱3,500</h3>
+</div>
+
+<div class="progress-bar-container" style="display: flex; height: 12px; border-radius: 999px; overflow: hidden; margin-bottom: 3rem;">
+<div class="pb-segment pb-orange" style="height: 100%; width: 88%; background-color: var(--accent-orange);"></div>
+<div class="pb-segment pb-dark" style="height: 100%; width: 7%; background-color: #112a1d;"></div>
+<div class="pb-segment pb-grey" style="height: 100%; width: 5%; background-color: #94a3b8;"></div>
+</div>
+
+<div class="impact-list" style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid #f1f5f9;">
+<div class="impact-item" style="display: flex; align-items: center; gap: 1rem;">
+<div class="impact-icon orange" style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: rgba(195, 106, 79, 0.1); color: var(--accent-orange);">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+</div>
+<div class="impact-details" style="flex-grow: 1;">
+<h4 style="color: var(--bg-dark); font-family: var(--font-body); font-size: 0.95rem; margin-bottom: 0.2rem;">Directly to Host Family</h4>
+<p style="color: #94a3b8; font-size: 0.75rem; margin: 0; line-height: 1.4;">Cayamanda Family Homestay, Itogon</p>
+<p class="price" style="color: #64748b; font-weight: 600; font-size: 0.8rem; margin-top: 0.2rem; margin-bottom: 0;">₱3,080</p>
+</div>
+<div class="impact-percent orange" style="font-weight: 700; font-size: 1.1rem; color: var(--accent-orange);">88%</div>
+</div>
+
+<div class="impact-item" style="display: flex; align-items: center; gap: 1rem;">
+<div class="impact-icon dark" style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #f1f5f9; color: #112a1d;">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+</div>
+<div class="impact-details" style="flex-grow: 1;">
+<h4 style="color: var(--bg-dark); font-family: var(--font-body); font-size: 0.95rem; margin-bottom: 0.2rem;">Trail Preservation Fund</h4>
+<p style="color: #94a3b8; font-size: 0.75rem; margin: 0; line-height: 1.4;">Itogon Trail & Heritage Conservation</p>
+<p class="price" style="color: #64748b; font-weight: 600; font-size: 0.8rem; margin-top: 0.2rem; margin-bottom: 0;">₱245</p>
+</div>
+<div class="impact-percent dark" style="font-weight: 700; font-size: 1.1rem; color: #112a1d;">7%</div>
+</div>
+
+<div class="impact-item" style="display: flex; align-items: center; gap: 1rem;">
+<div class="impact-icon grey" style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #f8fafc; color: #64748b;">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+</div>
+<div class="impact-details" style="flex-grow: 1;">
+<h4 style="color: var(--bg-dark); font-family: var(--font-body); font-size: 0.95rem; margin-bottom: 0.2rem;">Platform Maintenance</h4>
+<p style="color: #94a3b8; font-size: 0.75rem; margin: 0; line-height: 1.4;">Operations, tech, and local partnerships</p>
+<p class="price" style="color: #64748b; font-weight: 600; font-size: 0.8rem; margin-top: 0.2rem; margin-bottom: 0;">₱175</p>
+</div>
+<div class="impact-percent grey" style="font-weight: 700; font-size: 1.1rem; color: #64748b;">5%</div>
+</div>
+</div>
+
+<div class="impact-footer" style="text-align: center; font-size: 0.75rem; color: #94a3b8; display: flex; align-items: center; justify-content: center; gap: 8px;">
+<span class="dot" style="width: 6px; height: 6px; background-color: var(--accent-orange); border-radius: 50%;"></span> Real-time transparency for every booking
+</div>
+</div>
+</div>
+</section>
 <section id="host" class="bg-dark dot-grid section-padding" style="border-top: 1px solid rgba(255,255,255,0.05); background: linear-gradient(rgba(10, 20, 10, 0.8), rgba(10, 20, 10, 0.8)), url('terraces2.png');">
 <div class="container host-section">
 <div>
@@ -1227,7 +1290,7 @@ INSTANT PRICE ESTIMATOR
 <p style="color: #64748b;">Tell us your dream itinerary — we'll hand-match you with the perfect homestays, local guides, and activities across the BLISTT circuit.</p>
 </div>
 <div class="form-card">
-    <form class="form-grid" id="bundle-form" onsubmit="handleBundleSubmit(event)">
+<form class="form-grid" id="bundle-form" onsubmit="handleBundleSubmit(event)">
 <div class="form-group"><label>Your Name</label><input type="text" placeholder="e.g. Maria Santos" required></div>
 <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@email.com" required></div>
 <div class="form-group full"><label>Phone / Whatsapp</label><input type="tel" placeholder="+63 9XX XXX XXXX" required></div>
@@ -1279,7 +1342,7 @@ Which stops interest you?
 <textarea rows="4" placeholder="Dietary needs, mobility requirements, specific activities..."></textarea>
 </div>
 <div class="form-group full" style="margin-top: 1.5rem;">
-    <button type="submit" class="btn" style="background:#dbb5a7; color:white; width:100%; padding:1.2rem; font-size:1.1rem; display:flex; align-items:center; justify-content:center; gap:10px;">
+<button type="submit" class="btn" style="background:#dbb5a7; color:white; width:100%; padding:1.2rem; font-size:1.1rem; display:flex; align-items:center; justify-content:center; gap:10px;">
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
 Send My Bundle Request
 </button>
@@ -1323,339 +1386,305 @@ Send My Bundle Request
 <span>Built with care for the BLISTT communities.</span>
 </div>
 </div>
-
 <div class="footer-watermark">T.E.A.M.</div>
 </footer>
 <script>
 // 1. Sticky Navbar Effect
 window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    if (window.scrollY > 50) {
-        nav.style.backgroundColor = 'rgba(10, 31, 20, 0.98)';
-        nav.style.padding = '1rem 0';
-    } else {
-        nav.style.backgroundColor = 'rgba(10, 31, 20, 0.8)';
-        nav.style.padding = '1.5rem 0';
-    }
+const nav = document.getElementById('navbar');
+if (window.scrollY > 50) {
+nav.style.backgroundColor = 'rgba(10, 31, 20, 0.98)';
+nav.style.padding = '1rem 0';
+} else {
+nav.style.backgroundColor = 'rgba(10, 31, 20, 0.8)';
+nav.style.padding = '1.5rem 0';
+}
 });
-
 // 2. Universal Tab Switching Logic
 function switchTab(event, targetId, tabClass, contentClass) {
-    document.querySelectorAll('.' + tabClass).forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.' + contentClass).forEach(content => content.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    document.getElementById(targetId).classList.add('active');
+document.querySelectorAll('.' + tabClass).forEach(btn => btn.classList.remove('active'));
+document.querySelectorAll('.' + contentClass).forEach(content => content.classList.remove('active'));
+event.currentTarget.classList.add('active');
+document.getElementById(targetId).classList.add('active');
 }
-
 // 3. Hero Carousel Interactive Logic
 const heroData = [
-    {
-        title: "Baguio City", sub: "Summer Capital of the Philippines", price: "₱1,500-₱4,600/night", guide: "Baguio City Circuit Guide",
-        stays: ["Log Cabin Hotel - Safari Baguio (₱2,300-₱4,600/night)", "CV Homestay Baguio (₱1,500-₱3,500/night)", "La Casa Jessonmar Homestay (₱2,000-₱4,000/night)", "German Guesthouse & Homestay (₱2,000-₱3,000/night)"],
-        acts: ["Baguio Botanical Garden", "Mines View Park", "Burnham Park", "Session Road Night Market", "The Mansion", "Wright Park Horseback Riding"]
-    },
-    {
-        title: "La Trinidad", sub: "Valley of Colors", price: "₱1,200-₱4,200/night", guide: "La Trinidad Valley Guide",
-        stays: ["Wanay’s Rocky Mountain Homestay (₱1,200-₱4,200/night)", "The Midway Homestay (₱2,000-₱3,500/night)", "Forest Valley Homestay (₱1,500-₱3,000/night)"],
-        acts: ["La Trinidad Strawberry Farm", "Valley of Colors Mural Walk", "Inabel Weaving Workshop"]
-    },
-    {
-        title: "Itogon", sub: "The Land of Golden Opportunities", price: "₱2,500-₱6,000/night", guide: "Itogon Highland Guide",
-        stays: ["Iyaman Farm Homestay (₱2,500-₱6,000/night)"],
-        acts: ["Mt. Ulap Trail Hike", "Farm Tourism at Iyaman", "Hot Springs Visit"]
-    },
-    {
-        title: "Sablan", sub: "Fruits Basket of Benguet", price: "₱1,500-₱3,000/night", guide: "Sablan Eco Guide",
-        stays: ["Sablan Nature Lodge (₱1,500-₱3,000/night)"],
-        acts: ["Sablan Waterfalls Adventure", "Fruit Picking", "Eco-Trail Trekking"]
-    },
-    {
-        title: "Tuba", sub: "Cradle of Nature's Gift", price: "₱1,500-₱4,000/night", guide: "Tuba Nature Guide",
-        stays: ["Kissing Clouds Agri Farm (₱1,500-₱3,000/night)", "Tuba Mountain Lodge (₱2,000-₱4,000/night)"],
-        acts: ["Kissing Clouds Farm Tour", "Kennon Road Viewpoint", "Mt. Cabuyao Hike"]
-    },
-    {
-        title: "Tublay", sub: "The Land of Fascinating Caves", price: "₱1,000-₱4,000/night", guide: "Tublay Highland Guide",
-        stays: ["Mountain Oasis Homestay (₱2,000-₱4,000/night)", "Tublay Daily Homestay (₱1,000-₱2,000/night)"],
-        acts: ["Mt. Camisong Forest Trek", "Benguet Coffee Tasting", "Cave Exploration"]
-    }
+{
+title: "Baguio City", sub: "Summer Capital of the Philippines", price: "₱1,500-₱4,600/night", guide: "Baguio City Circuit Guide",
+stays: ["Log Cabin Hotel - Safari Baguio (₱2,300-₱4,600/night)", "CV Homestay Baguio (₱1,500-₱3,500/night)", "La Casa Jessonmar Homestay (₱2,000-₱4,000/night)", "German Guesthouse & Homestay (₱2,000-₱3,000/night)"],
+acts: ["Baguio Botanical Garden", "Mines View Park", "Burnham Park", "Session Road Night Market", "The Mansion", "Wright Park Horseback Riding"]
+},
+{
+title: "La Trinidad", sub: "Valley of Colors", price: "₱1,200-₱4,200/night", guide: "La Trinidad Valley Guide",
+stays: ["Wanay’s Rocky Mountain Homestay (₱1,200-₱4,200/night)", "The Midway Homestay (₱2,000-₱3,500/night)", "Forest Valley Homestay (₱1,500-₱3,000/night)"],
+acts: ["La Trinidad Strawberry Farm", "Valley of Colors Mural Walk", "Inabel Weaving Workshop"]
+},
+{
+title: "Itogon", sub: "The Land of Golden Opportunities", price: "₱2,500-₱6,000/night", guide: "Itogon Highland Guide",
+stays: ["Iyaman Farm Homestay (₱2,500-₱6,000/night)"],
+acts: ["Mt. Ulap Trail Hike", "Farm Tourism at Iyaman", "Hot Springs Visit"]
+},
+{
+title: "Sablan", sub: "Fruits Basket of Benguet", price: "₱1,500-₱3,000/night", guide: "Sablan Eco Guide",
+stays: ["Sablan Nature Lodge (₱1,500-₱3,000/night)"],
+acts: ["Sablan Waterfalls Adventure", "Fruit Picking", "Eco-Trail Trekking"]
+},
+{
+title: "Tuba", sub: "Cradle of Nature's Gift", price: "₱1,500-₱4,000/night", guide: "Tuba Nature Guide",
+stays: ["Kissing Clouds Agri Farm (₱1,500-₱3,000/night)", "Tuba Mountain Lodge (₱2,000-₱4,000/night)"],
+acts: ["Kissing Clouds Farm Tour", "Kennon Road Viewpoint", "Mt. Cabuyao Hike"]
+},
+{
+title: "Tublay", sub: "The Land of Fascinating Caves", price: "₱1,000-₱4,000/night", guide: "Tublay Highland Guide",
+stays: ["Mountain Oasis Homestay (₱2,000-₱4,000/night)", "Tublay Daily Homestay (₱1,000-₱2,000/night)"],
+acts: ["Mt. Camisong Forest Trek", "Benguet Coffee Tasting", "Cave Exploration"]
+}
 ];
-
 document.addEventListener("DOMContentLoaded", () => {
-    const dotsContainer = document.getElementById('hero-dots');
-    if (dotsContainer) {
-        dotsContainer.innerHTML = heroData.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}"></span>`).join('');
-    }
+const dotsContainer = document.getElementById('hero-dots');
+if (dotsContainer) {
+dotsContainer.innerHTML = heroData.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}"></span>`).join('');
+}
 });
-
 let currentHeroIndex = 0;
 function changeHero(dir) {
-    currentHeroIndex = (currentHeroIndex + dir + heroData.length) % heroData.length;
-    const d = heroData[currentHeroIndex];
-    document.getElementById('hero-title').innerText = d.title;
-    document.getElementById('hero-subtitle').innerText = d.sub;
-    document.getElementById('hero-price').innerText = d.price;
-    document.getElementById('hero-guide').innerText = d.guide;
-    document.getElementById('hero-btn').innerText = `Bundle My ${d.title} Trip`;
-    document.getElementById('hero-stays').innerHTML = d.stays.map(s => `<li>${s}</li>`).join('');
-    document.getElementById('hero-activities').innerHTML = d.acts.map(a => `<span class="pill">${a}</span>`).join('');
-    
-    const dots = document.querySelectorAll('#hero-dots .dot');
-    if (dots.length > 0) {
-        dots.forEach((dot, index) => {
-            if (index === currentHeroIndex) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
-            }
-        });
-    }
-}
+currentHeroIndex = (currentHeroIndex + dir + heroData.length) % heroData.length;
+const d = heroData[currentHeroIndex];
+document.getElementById('hero-title').innerText = d.title;
+document.getElementById('hero-subtitle').innerText = d.sub;
+document.getElementById('hero-price').innerText = d.price;
+document.getElementById('hero-guide').innerText = d.guide;
+document.getElementById('hero-btn').innerText = `Bundle My ${d.title} Trip`;
+document.getElementById('hero-stays').innerHTML = d.stays.map(s => `<li>${s}</li>`).join('');
+document.getElementById('hero-activities').innerHTML = d.acts.map(a => `<span class="pill">${a}</span>`).join('');
 
+const dots = document.querySelectorAll('#hero-dots .dot');
+if (dots.length > 0) {
+dots.forEach((dot, index) => {
+if (index === currentHeroIndex) {
+dot.classList.add('active');
+} else {
+dot.classList.remove('active');
+}
+});
+}
+}
 // 4. Interactive Price Estimator Logic
 let estState = {
-    guests: 2,
-    nights: 2,
-    stayMin: 2300, stayMax: 4600, stayName: 'Log Cabin Hotel - Safari Baguio',
-    guidePerDay: 1200, transPerNight: 500,
-    activitiesTotal: 0, actCount: 0
+guests: 2,
+nights: 2,
+stayMin: 2300, stayMax: 4600, stayName: 'Log Cabin Hotel - Safari Baguio',
+guidePerDay: 1200, transPerNight: 500,
+activitiesTotal: 0, actCount: 0
 };
 function updateCalc(type, val) {
-    if (type === 'guests') { estState.guests = Math.max(1, Math.min(10, estState.guests + val)); }
-    if (type === 'nights') { estState.nights = Math.max(1, Math.min(14, estState.nights + val)); }
-    document.getElementById(`calc-${type}`).innerText = estState[type];
-    renderReceipt();
+if (type === 'guests') { estState.guests = Math.max(1, Math.min(10, estState.guests + val)); }
+if (type === 'nights') { estState.nights = Math.max(1, Math.min(14, estState.nights + val)); }
+document.getElementById(`calc-${type}`).innerText = estState[type];
+renderReceipt();
 }
 function selectStay(element, min, max, name) {
-    document.querySelectorAll('.calc-stay').forEach(el => el.classList.remove('selected'));
-    element.classList.add('selected');
-    estState.stayMin = min; estState.stayMax = max; estState.stayName = name;
-    renderReceipt();
+document.querySelectorAll('.calc-stay').forEach(el => el.classList.remove('selected'));
+element.classList.add('selected');
+estState.stayMin = min; estState.stayMax = max; estState.stayName = name;
+renderReceipt();
 }
 function toggleActivity(element, price) {
-    element.classList.toggle('selected');
-    if (element.classList.contains('selected')) {
-        estState.activitiesTotal += price; estState.actCount++;
-    } else {
-        estState.activitiesTotal -= price; estState.actCount--;
-    }
-    renderReceipt();
-}
-function renderReceipt() {
-    const { guests, nights, stayMin, stayMax, stayName, guidePerDay, transPerNight, activitiesTotal, actCount } = estState;
-    const totalStayMin = stayMin * nights;
-    const totalStayMax = stayMax * nights;
-    const totalGuide = guidePerDay * nights;
-    const totalTrans = transPerNight * nights;
-    const totalActs = activitiesTotal * guests;
-    const grandMin = totalStayMin + totalGuide + totalTrans + totalActs;
-    const grandMax = totalStayMax + totalGuide + totalTrans + totalActs;
-    const fmt = (num) => "₱" + num.toLocaleString();
-    
-    document.getElementById('rec-n-text').innerText = `${nights}N`;
-    document.getElementById('rec-g-text').innerText = `${nights} days`;
-    document.getElementById('rec-stay-name').innerText = stayName;
-    document.getElementById('rec-stay-price').innerText = `${fmt(totalStayMin)} - ${fmt(totalStayMax)}`;
-    document.getElementById('rec-guide-price').innerText = fmt(totalGuide);
-    document.getElementById('rec-trans-price').innerText = fmt(totalTrans);
-    
-    const actRow = document.getElementById('rec-act-row');
-    if (actCount > 0) {
-        actRow.style.display = 'flex';
-        document.getElementById('rec-act-count').innerText = actCount;
-        document.getElementById('rec-act-price').innerText = fmt(totalActs);
-    } else {
-        actRow.style.display = 'none';
-    }
-    document.getElementById('rec-total').innerText = `${fmt(grandMin)} - ${fmt(grandMax)}`;
-    document.getElementById('rec-per-pax').innerText = `${fmt(Math.round(grandMin / guests))} - ${fmt(Math.round(grandMax / guests))} per person`;
+element.classList.toggle('selected');
+if (element.classList.contains('selected')) {
+estState.activitiesTotal += price; estState.actCount++;
+} else {
+estState.activitiesTotal -= price; estState.actCount--;
 }
 renderReceipt();
+}
+function renderReceipt() {
+const { guests, nights, stayMin, stayMax, stayName, guidePerDay, transPerNight, activitiesTotal, actCount } = estState;
+const totalStayMin = stayMin * nights;
+const totalStayMax = stayMax * nights;
+const totalGuide = guidePerDay * nights;
+const totalTrans = transPerNight * nights;
+const totalActs = activitiesTotal * guests;
+const grandMin = totalStayMin + totalGuide + totalTrans + totalActs;
+const grandMax = totalStayMax + totalGuide + totalTrans + totalActs;
+const fmt = (num) => "₱" + num.toLocaleString();
 
+document.getElementById('rec-n-text').innerText = `${nights}N`;
+document.getElementById('rec-g-text').innerText = `${nights} days`;
+document.getElementById('rec-stay-name').innerText = stayName;
+document.getElementById('rec-stay-price').innerText = `${fmt(totalStayMin)} - ${fmt(totalStayMax)}`;
+document.getElementById('rec-guide-price').innerText = fmt(totalGuide);
+document.getElementById('rec-trans-price').innerText = fmt(totalTrans);
 
+const actRow = document.getElementById('rec-act-row');
+if (actCount > 0) {
+actRow.style.display = 'flex';
+document.getElementById('rec-act-count').innerText = actCount;
+document.getElementById('rec-act-price').innerText = fmt(totalActs);
+} else {
+actRow.style.display = 'none';
+}
+document.getElementById('rec-total').innerText = `${fmt(grandMin)} - ${fmt(grandMax)}`;
+document.getElementById('rec-per-pax').innerText = `${fmt(Math.round(grandMin / guests))} - ${fmt(Math.round(grandMax / guests))} per person`;
+}
+renderReceipt();
 // =========================================
 // FORM SUBMIT SIMULATION (NEW)
 // =========================================
 function handleBundleSubmit(e) {
-    e.preventDefault(); // Prevents the page from reloading
-    
-    // Find the submit button to change its text
-    const form = e.target;
-    const btn = form.querySelector('button[type="submit"]');
-    const originalHTML = btn.innerHTML;
-    const originalBg = btn.style.background;
-    
-    // Change button to show success temporarily
-    btn.innerHTML = "✅ Request Sent Successfully!";
-    btn.style.background = "#34A853"; // Google green
-    
-    // Show an alert and reset the form after a tiny delay
-    setTimeout(() => {
-        alert("Success! Your itinerary request has been sent to our local guides. We will email your confirmed bundle shortly.");
-        
-        // Clear all text inputs
-        form.reset(); 
-        
-        // Clear the destination pill selections
-        document.querySelectorAll('.pill-cb').forEach(p => p.classList.remove('active'));
-        
-        // Revert button back to normal so it can be used again
-        btn.innerHTML = originalHTML;
-        btn.style.background = originalBg;
-    }, 500);
+e.preventDefault(); // Prevents the page from reloading
+
+// Find the submit button to change its text
+const form = e.target;
+const btn = form.querySelector('button[type="submit"]');
+const originalHTML = btn.innerHTML;
+const originalBg = btn.style.background;
+
+// Change button to show success temporarily
+btn.innerHTML = " ✅  Request Sent Successfully!";
+btn.style.background = "#34A853"; // Google green
+
+// Show an alert and reset the form after a tiny delay
+setTimeout(() => {
+alert("Success! Your itinerary request has been sent to our local guides. We will email your confirmed bundle shortly.");
+
+// Clear all text inputs
+form.reset();
+
+// Clear the destination pill selections
+document.querySelectorAll('.pill-cb').forEach(p => p.classList.remove('active'));
+
+// Revert button back to normal so it can be used again
+btn.innerHTML = originalHTML;
+btn.style.background = originalBg;
+}, 500);
 }
-
-
 // =========================================
 // UPDATED AUTHENTICATION LOGIC (WITH ANIMATIONS)
 // =========================================
-
 const authOverlay = document.getElementById('auth-overlay');
 const accountOverlay = document.getElementById('account-overlay');
 const navAuthBtn = document.getElementById('nav-auth-btn');
 let currentUserEmail = "";
-
 // Check Auth State on Load
 document.addEventListener("DOMContentLoaded", () => {
-    checkAuthState();
+checkAuthState();
 });
-
 function checkAuthState() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    const savedEmail = localStorage.getItem('userEmail');
+const isLoggedIn = localStorage.getItem('isLoggedIn');
+const savedEmail = localStorage.getItem('userEmail');
+if (isLoggedIn === 'true') {
+// Logged In State
+authOverlay.classList.remove('active-overlay');
+accountOverlay.classList.remove('active-overlay');
+document.body.style.overflow = 'auto';
+navAuthBtn.innerHTML = `
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+My Profile
+`;
 
-    if (isLoggedIn === 'true') {
-        // Logged In State
-        authOverlay.classList.remove('active-overlay');
-        accountOverlay.classList.remove('active-overlay');
-        document.body.style.overflow = 'auto';
+document.getElementById('portal-email').innerText = savedEmail;
+document.getElementById('portal-initial').innerText = savedEmail.charAt(0).toUpperCase();
+navAuthBtn.onclick = (e) => {
+e.preventDefault();
+document.body.style.overflow = 'hidden';
+accountOverlay.classList.add('active-overlay');
 
-        navAuthBtn.innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            My Profile
-        `;
-        
-        document.getElementById('portal-email').innerText = savedEmail;
-        document.getElementById('portal-initial').innerText = savedEmail.charAt(0).toUpperCase();
+const portalView = document.getElementById('view-portal');
+portalView.classList.remove('hidden-view');
+setTimeout(() => portalView.classList.add('fade-in-up'), 10);
+};
+} else {
+// Logged Out State
+accountOverlay.classList.remove('active-overlay');
+document.body.style.overflow = 'hidden';
 
-        navAuthBtn.onclick = (e) => {
-            e.preventDefault();
-            document.body.style.overflow = 'hidden'; 
-            accountOverlay.classList.add('active-overlay');
-            
-            const portalView = document.getElementById('view-portal');
-            portalView.classList.remove('hidden-view');
-            setTimeout(() => portalView.classList.add('fade-in-up'), 10);
-        };
-
-    } else {
-        // Logged Out State
-        accountOverlay.classList.remove('active-overlay');
-        document.body.style.overflow = 'hidden'; 
-        
-        // Trigger the initial fade in for the login screen
-        authOverlay.classList.add('active-overlay');
-        switchAuthView('view-login');
-
-        navAuthBtn.innerHTML = "Sign In";
-        navAuthBtn.onclick = (e) => {
-            e.preventDefault();
-            document.body.style.overflow = 'hidden';
-            authOverlay.classList.add('active-overlay');
-            switchAuthView('view-login');
-        };
-    }
+// Trigger the initial fade in for the login screen
+authOverlay.classList.add('active-overlay');
+switchAuthView('view-login');
+navAuthBtn.innerHTML = "Sign In";
+navAuthBtn.onclick = (e) => {
+e.preventDefault();
+document.body.style.overflow = 'hidden';
+authOverlay.classList.add('active-overlay');
+switchAuthView('view-login');
+};
 }
-
+}
 function closeAccountPortal() {
-    const portalView = document.getElementById('view-portal');
-    portalView.classList.remove('fade-in-up'); // animate out
-    accountOverlay.classList.remove('active-overlay'); // fade background
-    
-    setTimeout(() => {
-        portalView.classList.add('hidden-view');
-        document.body.style.overflow = 'auto';
-    }, 300);
-}
+const portalView = document.getElementById('view-portal');
+portalView.classList.remove('fade-in-up'); // animate out
+accountOverlay.classList.remove('active-overlay'); // fade background
 
+setTimeout(() => {
+portalView.classList.add('hidden-view');
+document.body.style.overflow = 'auto';
+}, 300);
+}
 function switchAuthView(viewId) {
-    // Instantly hide current views and remove animation classes
-    ['view-login', 'view-signup', 'view-verify'].forEach(id => {
-        const el = document.getElementById(id);
-        if(el) {
-            el.classList.add('hidden-view');
-            el.classList.remove('fade-in-up');
-        }
-    });
-
-    // Show target view and trigger smooth slide-up animation
-    const target = document.getElementById(viewId);
-    if(target) {
-        target.classList.remove('hidden-view');
-        // Small delay allows the browser to register the element before animating
-        setTimeout(() => {
-            target.classList.add('fade-in-up');
-        }, 10);
-    }
+// Instantly hide current views and remove animation classes
+['view-login', 'view-signup', 'view-verify'].forEach(id => {
+const el = document.getElementById(id);
+if(el) {
+el.classList.add('hidden-view');
+el.classList.remove('fade-in-up');
 }
-
+});
+// Show target view and trigger smooth slide-up animation
+const target = document.getElementById(viewId);
+if(target) {
+target.classList.remove('hidden-view');
+// Small delay allows the browser to register the element before animating
+setTimeout(() => {
+target.classList.add('fade-in-up');
+}, 10);
+}
+}
 function handleLogin(e) {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const pass = document.getElementById('login-pass').value;
-
-    const storedEmail = localStorage.getItem('regEmail');
-    const storedPass = localStorage.getItem('regPass');
-
-    if ((email === storedEmail && pass === storedPass) || (email === "test@team.com" && pass === "password")) {
-        loginSuccess(email);
-    } else {
-        alert("Invalid credentials. Try test@team.com / password, or Sign Up first.");
-    }
+e.preventDefault();
+const email = document.getElementById('login-email').value;
+const pass = document.getElementById('login-pass').value;
+const storedEmail = localStorage.getItem('regEmail');
+const storedPass = localStorage.getItem('regPass');
+if ((email === storedEmail && pass === storedPass) || (email === "test@team.com" && pass === "password")) {
+loginSuccess(email);
+} else {
+alert("Invalid credentials. Try test@team.com / password, or Sign Up first.");
 }
-
+}
 function handleSignup(e) {
-    e.preventDefault();
-    const email = document.getElementById('signup-email').value;
-    const pass = document.getElementById('signup-pass').value;
-    const confirm = document.getElementById('signup-confirm').value;
-
-    if (pass !== confirm) {
-        alert("Passwords do not match!");
-        return;
-    }
-
-    localStorage.setItem('regEmail', email);
-    localStorage.setItem('regPass', pass);
-    currentUserEmail = email;
-
-    document.getElementById('verify-email-display').innerText = email;
-    switchAuthView('view-verify');
+e.preventDefault();
+const email = document.getElementById('signup-email').value;
+const pass = document.getElementById('signup-pass').value;
+const confirm = document.getElementById('signup-confirm').value;
+if (pass !== confirm) {
+alert("Passwords do not match!");
+return;
 }
-
+localStorage.setItem('regEmail', email);
+localStorage.setItem('regPass', pass);
+currentUserEmail = email;
+document.getElementById('verify-email-display').innerText = email;
+switchAuthView('view-verify');
+}
 function handleVerify(e) {
-    e.preventDefault();
-    loginSuccess(currentUserEmail);
+e.preventDefault();
+loginSuccess(currentUserEmail);
 }
-
 function simulateGoogleLogin() {
-    loginSuccess("guest@google.com");
+loginSuccess("guest@google.com");
 }
-
 function loginSuccess(email) {
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('userEmail', email);
-
-    document.querySelectorAll('.auth-input').forEach(input => input.value = '');
-
-    checkAuthState();
-    window.scrollTo(0, 0); 
+localStorage.setItem('isLoggedIn', 'true');
+localStorage.setItem('userEmail', email);
+document.querySelectorAll('.auth-input').forEach(input => input.value = '');
+checkAuthState();
+window.scrollTo(0, 0);
 }
-
 function handleLogout() {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userEmail');
-    checkAuthState(); 
+localStorage.removeItem('isLoggedIn');
+localStorage.removeItem('userEmail');
+checkAuthState();
 }
 </script>
 </body>

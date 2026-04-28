@@ -505,10 +505,17 @@ footer { padding: 6rem 0 3rem; border-top: 1px solid rgba(255,255,255,0.05); pos
     box-shadow: 0 10px 40px rgba(0,0,0,0.08); text-align: center;
     opacity: 0; transform: translateY(20px);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Added to handle taller sign-up form on smaller screens */
+    max-height: 90vh;
+    overflow-y: auto;
 }
 .auth-card.fade-in-up {
     opacity: 1; transform: translateY(0);
 }
+.auth-card::-webkit-scrollbar { width: 6px; }
+.auth-card::-webkit-scrollbar-track { background: transparent; }
+.auth-card::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
 .auth-logo { margin-bottom: 1.5rem; display: flex; justify-content: center; }
 .auth-logo svg { width: 42px; height: 42px; color: var(--accent-orange); }
 .auth-card h2 { color: #0f172a; font-size: 1.6rem; margin-bottom: 0.3rem; font-family: var(--font-body); font-weight: 700;}
@@ -696,6 +703,18 @@ footer { padding: 6rem 0 3rem; border-top: 1px solid rgba(255,255,255,0.05); pos
         
         <form class="auth-form" onsubmit="handleSignup(event)">
             <div>
+                <label>Full Name</label>
+                <input type="text" id="signup-name" class="auth-input" placeholder="e.g. Maria Santos" required>
+            </div>
+            <div>
+                <label>Phone Number</label>
+                <input type="tel" id="signup-phone" class="auth-input" placeholder="+63 9XX XXX XXXX" required>
+            </div>
+            <div>
+                <label>Address</label>
+                <input type="text" id="signup-address" class="auth-input" placeholder="City, Province" required>
+            </div>
+            <div>
                 <label>Email</label>
                 <input type="email" id="signup-email" class="auth-input" placeholder="you@example.com" required>
             </div>
@@ -738,12 +757,26 @@ footer { padding: 6rem 0 3rem; border-top: 1px solid rgba(255,255,255,0.05); pos
         </div>
         
         <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0;">
-            <div style="width: 50px; height: 50px; background: var(--bg-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-family: var(--font-heading);">
+            <div style="width: 60px; height: 60px; background: var(--bg-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-family: var(--font-heading);">
                 <span id="portal-initial">T</span>
             </div>
             <div>
-                <h3 style="color: #0f172a; margin: 0; font-size: 1.2rem;">My Profile & Booking History</h3>
+                <h3 style="color: #0f172a; margin: 0; font-size: 1.3rem;" id="portal-name">Guest User</h3>
                 <p style="color: #64748b; font-size: 0.85rem; margin: 0;" id="portal-email">user@email.com</p>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 2rem;">
+            <h4 style="color: #475569; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Personal Information</h4>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                 <div>
+                     <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">Phone Number</span>
+                     <p style="color: #0f172a; margin: 0; font-weight: 500;" id="portal-phone">+63 --- --- ----</p>
+                 </div>
+                 <div>
+                     <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">Address</span>
+                     <p style="color: #0f172a; margin: 0; font-weight: 500;" id="portal-address">Not provided</p>
+                 </div>
             </div>
         </div>
 
@@ -759,6 +792,17 @@ footer { padding: 6rem 0 3rem; border-top: 1px solid rgba(255,255,255,0.05); pos
         <div style="text-align: center; margin-top: 2rem;">
              <a href="#" onclick="closeAccountPortal()" style="color: var(--accent-orange); font-size: 0.95rem; font-weight: 600; text-decoration: none;">&larr; Return to Website</a>
         </div>
+    </div>
+</div>
+
+<div id="success-modal" class="auth-overlay hidden-view" style="z-index: 10000; background-color: rgba(10, 31, 20, 0.85);">
+    <div class="auth-card hidden-view" id="success-card" style="padding: 3rem 2rem;">
+        <div style="width: 64px; height: 64px; background: #dcfce7; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.5rem;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem; color: #0f172a;">Request Sent!</h2>
+        <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">Your itinerary request has been successfully sent to our local guides. We will email your confirmed bundle shortly.</p>
+        <button onclick="closeSuccessModal()" style="width: 100%; padding: 1rem; background: var(--accent-orange); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.2s;">Got it, thanks!</button>
     </div>
 </div>
 
@@ -1322,7 +1366,7 @@ INSTANT PRICE ESTIMATOR
 <p style="color: #64748b;">Tell us your dream itinerary — we'll hand-match you with the perfect homestays, local guides, and activities across the BLISTT circuit.</p>
 </div>
 <div class="form-card">
-<form class="form-grid" id="bundle-form" onsubmit="handleBundleSubmit(event)">
+<form class="form-grid" id="bundle-form" onsubmit="handleBundleSubmit(event)" oninput="checkFormValidity()">
 <div class="form-group"><label>Your Name</label><input type="text" placeholder="e.g. Maria Santos" required></div>
 <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@email.com" required></div>
 <div class="form-group full"><label>Phone / Whatsapp</label><input type="tel" placeholder="+63 9XX XXX XXXX" required></div>
@@ -1332,12 +1376,12 @@ INSTANT PRICE ESTIMATOR
 Which stops interest you?
 </label>
 <div class="pill-checkboxes">
-<span class="pill-cb" onclick="this.classList.toggle('active')">Baguio City</span>
-<span class="pill-cb" onclick="this.classList.toggle('active')">La Trinidad</span>
-<span class="pill-cb" onclick="this.classList.toggle('active')">Itogon</span>
-<span class="pill-cb" onclick="this.classList.toggle('active')">Sablan</span>
-<span class="pill-cb" onclick="this.classList.toggle('active')">Tuba</span>
-<span class="pill-cb" onclick="this.classList.toggle('active')">Tublay</span>
+<span class="pill-cb" onclick="this.classList.toggle('active'); checkFormValidity();">Baguio City</span>
+<span class="pill-cb" onclick="this.classList.toggle('active'); checkFormValidity();">La Trinidad</span>
+<span class="pill-cb" onclick="this.classList.toggle('active'); checkFormValidity();">Itogon</span>
+<span class="pill-cb" onclick="this.classList.toggle('active'); checkFormValidity();">Sablan</span>
+<span class="pill-cb" onclick="this.classList.toggle('active'); checkFormValidity();">Tuba</span>
+<span class="pill-cb" onclick="this.classList.toggle('active'); checkFormValidity();">Tublay</span>
 </div>
 <span style="font-size:0.75rem; color:var(--accent-orange); margin-top:5px;">Select at least one municipality</span>
 </div>
@@ -1374,7 +1418,7 @@ Which stops interest you?
 <textarea rows="4" placeholder="Dietary needs, mobility requirements, specific activities..."></textarea>
 </div>
 <div class="form-group full" style="margin-top: 1.5rem;">
-<button type="submit" class="btn" style="background:#dbb5a7; color:white; width:100%; padding:1.2rem; font-size:1.1rem; display:flex; align-items:center; justify-content:center; gap:10px;">
+<button type="submit" id="bundle-submit-btn" class="btn" style="background:#dbb5a7; color:white; width:100%; padding:1.2rem; font-size:1.1rem; display:flex; align-items:center; justify-content:center; gap:10px; cursor: not-allowed;" disabled>
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
 Send My Bundle Request
 </button>
@@ -1418,6 +1462,7 @@ Send My Bundle Request
 <span>Built with care for the BLISTT communities.</span>
 </div>
 </div>
+
 <div class="footer-watermark">T.E.A.M.</div>
 </footer>
 
@@ -1567,26 +1612,77 @@ function renderReceipt() {
 }
 renderReceipt();
 
+
 // =========================================
-// FORM SUBMIT SIMULATION
+// FORM SUBMIT VALIDATION & CUSTOM POPUP
 // =========================================
+function checkFormValidity() {
+    const form = document.getElementById('bundle-form');
+    const btn = document.getElementById('bundle-submit-btn');
+    
+    // Check if at least one municipality pill is clicked
+    const hasPill = document.querySelectorAll('#bundle-form .pill-cb.active').length > 0;
+
+    // Check if the required inputs are filled out properly AND a pill is selected
+    if (form.checkValidity() && hasPill) {
+        btn.style.background = 'var(--accent-orange)'; // Vibrant Orange
+        btn.disabled = false;
+        btn.style.cursor = 'pointer';
+    } else {
+        btn.style.background = '#dbb5a7'; // Faded Orange
+        btn.disabled = true;
+        btn.style.cursor = 'not-allowed';
+    }
+}
+
 function handleBundleSubmit(e) {
     e.preventDefault(); 
     const form = e.target;
-    const btn = form.querySelector('button[type="submit"]');
+    const btn = document.getElementById('bundle-submit-btn');
     const originalHTML = btn.innerHTML;
-    const originalBg = btn.style.background;
     
     btn.innerHTML = " ✅  Request Sent Successfully!";
-    btn.style.background = "#34A853"; 
+    btn.style.background = "#34A853"; // Green success color
     
     setTimeout(() => {
-        alert("Success! Your itinerary request has been sent to our local guides. We will email your confirmed bundle shortly.");
+        // TRIGGER CUSTOM SUCCESS MODAL INSTEAD OF BROWSER ALERT
+        const modal = document.getElementById('success-modal');
+        const card = document.getElementById('success-card');
+        
+        modal.classList.remove('hidden-view');
+        card.classList.remove('hidden-view');
+        
+        setTimeout(() => {
+            modal.classList.add('active-overlay');
+            card.classList.add('fade-in-up');
+        }, 10);
+        
+        document.body.style.overflow = 'hidden';
+
+        // Reset the form in the background
         form.reset();
         document.querySelectorAll('.pill-cb').forEach(p => p.classList.remove('active'));
+        
+        // Reset button back to initial disabled state
         btn.innerHTML = originalHTML;
-        btn.style.background = originalBg;
+        btn.style.background = '#dbb5a7';
+        btn.disabled = true;
+        btn.style.cursor = 'not-allowed';
     }, 500);
+}
+
+function closeSuccessModal() {
+    const modal = document.getElementById('success-modal');
+    const card = document.getElementById('success-card');
+    
+    modal.classList.remove('active-overlay');
+    card.classList.remove('fade-in-up');
+    
+    setTimeout(() => {
+        modal.classList.add('hidden-view');
+        card.classList.add('hidden-view');
+        document.body.style.overflow = 'auto';
+    }, 300);
 }
 
 // =========================================
@@ -1604,16 +1700,26 @@ document.addEventListener("DOMContentLoaded", () => {
 function checkAuthState() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const savedEmail = localStorage.getItem('userEmail');
+    const savedName = localStorage.getItem('userName') || "Guest User";
+    const savedPhone = localStorage.getItem('userPhone') || "Not provided";
+    const savedAddress = localStorage.getItem('userAddress') || "Not provided";
+
     if (isLoggedIn === 'true') {
         authOverlay.classList.remove('active-overlay');
         accountOverlay.classList.remove('active-overlay');
         document.body.style.overflow = 'auto';
+        
         navAuthBtn.innerHTML = `
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         My Profile
         `;
+        
         document.getElementById('portal-email').innerText = savedEmail;
-        document.getElementById('portal-initial').innerText = savedEmail.charAt(0).toUpperCase();
+        document.getElementById('portal-name').innerText = savedName;
+        document.getElementById('portal-phone').innerText = savedPhone;
+        document.getElementById('portal-address').innerText = savedAddress;
+        document.getElementById('portal-initial').innerText = savedName.charAt(0).toUpperCase();
+        
         navAuthBtn.onclick = (e) => {
             e.preventDefault();
             document.body.style.overflow = 'hidden';
@@ -1668,10 +1774,17 @@ function handleLogin(e) {
     e.preventDefault();
     const email = document.getElementById('login-email').value;
     const pass = document.getElementById('login-pass').value;
+    
     const storedEmail = localStorage.getItem('regEmail');
     const storedPass = localStorage.getItem('regPass');
-    if ((email === storedEmail && pass === storedPass) || (email === "test@team.com" && pass === "password")) {
-        loginSuccess(email);
+    
+    if (email === storedEmail && pass === storedPass) {
+        const name = localStorage.getItem('regName') || "User";
+        const phone = localStorage.getItem('regPhone') || "Not provided";
+        const address = localStorage.getItem('regAddress') || "Not provided";
+        loginSuccess(email, name, phone, address);
+    } else if (email === "test@team.com" && pass === "password") {
+        loginSuccess(email, "Test User", "+63 912 345 6789", "Baguio City, Benguet");
     } else {
         alert("Invalid credentials. Try test@team.com / password, or Sign Up first.");
     }
@@ -1679,15 +1792,25 @@ function handleLogin(e) {
 
 function handleSignup(e) {
     e.preventDefault();
+    
+    const name = document.getElementById('signup-name').value;
+    const phone = document.getElementById('signup-phone').value;
+    const address = document.getElementById('signup-address').value;
     const email = document.getElementById('signup-email').value;
     const pass = document.getElementById('signup-pass').value;
     const confirm = document.getElementById('signup-confirm').value;
+    
     if (pass !== confirm) {
         alert("Passwords do not match!");
         return;
     }
+    
+    localStorage.setItem('regName', name);
+    localStorage.setItem('regPhone', phone);
+    localStorage.setItem('regAddress', address);
     localStorage.setItem('regEmail', email);
     localStorage.setItem('regPass', pass);
+    
     currentUserEmail = email;
     document.getElementById('verify-email-display').innerText = email;
     switchAuthView('view-verify');
@@ -1695,16 +1818,24 @@ function handleSignup(e) {
 
 function handleVerify(e) {
     e.preventDefault();
-    loginSuccess(currentUserEmail);
+    const name = localStorage.getItem('regName') || "New User";
+    const phone = localStorage.getItem('regPhone') || "Not provided";
+    const address = localStorage.getItem('regAddress') || "Not provided";
+    
+    loginSuccess(currentUserEmail, name, phone, address);
 }
 
 function simulateGoogleLogin() {
-    loginSuccess("guest@google.com");
+    loginSuccess("guest@google.com", "Google Account User", "+63 999 888 7777", "La Trinidad, Benguet");
 }
 
-function loginSuccess(email) {
+function loginSuccess(email, name = "Guest User", phone = "N/A", address = "N/A") {
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('userEmail', email);
+    localStorage.setItem('userName', name);
+    localStorage.setItem('userPhone', phone);
+    localStorage.setItem('userAddress', address);
+    
     document.querySelectorAll('.auth-input').forEach(input => input.value = '');
     checkAuthState();
     window.scrollTo(0, 0);
@@ -1713,6 +1844,9 @@ function loginSuccess(email) {
 function handleLogout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userPhone');
+    localStorage.removeItem('userAddress');
     checkAuthState();
 }
 </script>

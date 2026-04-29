@@ -468,7 +468,7 @@ footer { padding: 6rem 0 3rem; border-top: 1px solid rgba(255,255,255,0.05); pos
 .hidden-view { display: none !important; }
 
 /* =========================================
-   MOBILE RESPONSIVENESS FIXES 
+   MOBILE RESPONSIVENESS FIXES
    ========================================= */
 @media (max-width: 900px) {
     html, body { overflow-x: hidden !important; max-width: 100vw !important; width: 100% !important; }
@@ -532,7 +532,7 @@ footer { padding: 6rem 0 3rem; border-top: 1px solid rgba(255,255,255,0.05); pos
 <script type="text/javascript">
    (function(){
       // PALITAN MO TO NG TOTOONG PUBLIC KEY MO FROM EMAILJS
-      emailjs.init("YOUR_PUBLIC_KEY_HERE"); 
+      emailjs.init("vAOvmSZAR_mVY8RiZ"); 
    })();
 </script>
 </head>
@@ -785,7 +785,7 @@ What You'll Do
 <span style="display:flex; align-items:center; gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span id="hero-guide">Baguio City Circuit Guide</span></span>
 <strong id="hero-price">₱1,500-₱4,600/night</strong>
 </div>
-<a href="#contact" class="btn" style="width: 100%; margin-top: 1.5rem;" id="hero-btn">Bundle My Baguio City Trip</a>
+<button class="btn" style="width: 100%; margin-top: 1.5rem;" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">Bundle My Trip</button>
 </div>
 </div>
 </section>
@@ -915,7 +915,7 @@ What You'll Do
 
 <div class="tab-content c-content" id="c-tuba">
     <span class="badge orange" style="margin-bottom:1.5rem; display:flex; align-items:center; gap:5px; width:max-content;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
         CRADLE OF NATURE'S GIFT
     </span>
     <h3>Tuba</h3>
@@ -937,7 +937,7 @@ What You'll Do
 
 <div class="tab-content c-content" id="c-tublay">
     <span class="badge orange" style="margin-bottom:1.5rem; display:flex; align-items:center; gap:5px; width:max-content;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3l4 8 5-5 5 15H2L8 3z"/></svg>
         THE LAND OF FASCINATING CAVES
     </span>
     <h3>Tublay</h3>
@@ -2089,38 +2089,43 @@ function handleBundleSubmit(e) {
         notes: document.getElementById('bundle-notes').value || "None"
     };
 
-    // UPDATE WITH YOUR REAL KEYS WHEN READY
-    // emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-    
-    // Simulating the email send delay for your UI presentation
-    setTimeout(() => {
-        btn.innerHTML = " ✅  Request Sent Successfully!";
-        btn.style.background = "#34A853"; 
-        
-        setTimeout(() => {
-            const modal = document.getElementById('success-modal');
-            const card = document.getElementById('success-card');
-            
-            modal.classList.remove('hidden-view');
-            card.classList.remove('hidden-view');
+    // ACTUAL EMAILJS SEND FUNCTION
+    emailjs.send('service_f3gkbaz', 'template_qxbrigh', templateParams)
+        .then(function(response) {
+            // SUCCESS
+            btn.innerHTML = " ✅  Request Sent Successfully!";
+            btn.style.background = "#34A853"; 
             
             setTimeout(() => {
-                modal.classList.add('active-overlay');
-                card.classList.add('fade-in-up');
-            }, 10);
-            
-            document.body.style.overflow = 'hidden';
+                const modal = document.getElementById('success-modal');
+                const card = document.getElementById('success-card');
+                
+                modal.classList.remove('hidden-view');
+                card.classList.remove('hidden-view');
+                
+                setTimeout(() => {
+                    modal.classList.add('active-overlay');
+                    card.classList.add('fade-in-up');
+                }, 10);
+                
+                document.body.style.overflow = 'hidden';
 
-            form.reset();
-            document.querySelectorAll('.pill-cb').forEach(p => p.classList.remove('active'));
-            document.getElementById('bundle-activities-group').style.display = 'none'; // hide activities list
-            
+                form.reset();
+                document.querySelectorAll('.pill-cb').forEach(p => p.classList.remove('active'));
+                document.getElementById('bundle-activities-group').style.display = 'none'; // hide activities list
+                
+                btn.innerHTML = originalHTML;
+                btn.style.background = '#dbb5a7';
+                btn.disabled = true;
+                btn.style.cursor = 'not-allowed';
+            }, 500);
+        }, function(error) {
+            // FAILED
+            alert("Oops! Failed to send email. Check your EmailJS settings.");
             btn.innerHTML = originalHTML;
-            btn.style.background = '#dbb5a7';
-            btn.disabled = true;
-            btn.style.cursor = 'not-allowed';
-        }, 500);
-    }, 1500);
+            btn.style.background = 'var(--accent-orange)';
+            btn.style.cursor = 'pointer';
+        });
 }
 
 function closeSuccessModal() {

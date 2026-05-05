@@ -1148,6 +1148,32 @@ What You'll Do
                 </div>
                 <div class="stay-footer-btn">View Full Details &rarr;</div>
             </div>
+
+            <!-- DOT ACCREDITED: BAGUIO -->
+            <div class="stay-card" onclick="openStayModal('elys')">
+                <span class="stay-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Baguio City</span>
+                <h3 class="stay-title">Ely's Place</h3>
+                <div class="stay-price">₱1,500 - ₱3,000 <span style="font-size:0.8rem; color:#94a3b8; font-weight:500;">/night</span></div>
+                <div class="stay-info">
+                    
+                    <h5>Offerings</h5>
+                    <p>Accessible location, Clean private rooms, Free Wi-Fi, Hot shower...</p>
+                </div>
+                <div class="stay-footer-btn">View Full Details &rarr;</div>
+            </div>
+
+            <!-- DOT ACCREDITED: BAGUIO -->
+            <div class="stay-card" onclick="openStayModal('countrywoods')">
+                <span class="stay-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Baguio City</span>
+                <h3 class="stay-title">Countrywoods Homestay</h3>
+                <div class="stay-price">₱2,500 - ₱5,000 <span style="font-size:0.8rem; color:#94a3b8; font-weight:500;">/night</span></div>
+                <div class="stay-info">
+                    
+                    <h5>Offerings</h5>
+                    <p>Spacious accommodations, Forest views, Premium amenities, Secure parking...</p>
+                </div>
+                <div class="stay-footer-btn">View Full Details &rarr;</div>
+            </div>
         </div>
     </div>
 </section>
@@ -1503,6 +1529,12 @@ INSTANT PRICE ESTIMATOR
 </div>
 <div class="est-item calc-stay" onclick="selectStay(this, 2000, 3500, 'CasaNorte Transient House')">
 <strong>CasaNorte Transient House </strong><span>Baguio City • ₱2,000-₱3,500/night</span>
+</div>
+<div class="est-item calc-stay" onclick="selectStay(this, 1500, 3000, 'Elys Place')">
+<strong>Ely's Place </strong><span>Baguio City • ₱1,500-₱3,000/night</span>
+</div>
+<div class="est-item calc-stay" onclick="selectStay(this, 2500, 5000, 'Countrywoods Homestay')">
+<strong>Countrywoods Homestay =</strong><span>Baguio City • ₱2,500-₱5,000/night</span>
 </div>
 </div>
 </div>
@@ -2032,6 +2064,26 @@ const stayDatabase = {
         offerings: 'Accessible location, hot shower, free Wi-Fi, friendly hosts, and basic cooking amenities.',
         attr: ['Baguio Night Market (~2.5 km)', 'Burnham Park (~3 km)', 'Camp John Hay (~4 km)'],
         food: '<strong>Café by the Ruins</strong> and local food stalls in the city center.'
+    },
+    'elys': {
+        loc: 'Baguio City',
+        title: "Ely's Place",
+        price: '₱1,500 - ₱3,000 / night',
+        priceDetail: 'Very affordable rates for couples and small groups visiting the Summer Capital.',
+        desc: 'Located at 129 Nevada Rd. Lower Engineer\'s, Brgy. Engineer\'s, Baguio City[cite: 4]. Officially accredited by the DOT[cite: 4].',
+        offerings: 'Clean accommodations, hot shower, free Wi-Fi, easy access to public transport, and friendly hosts.',
+        attr: ['Camp John Hay (~3.5 km)', 'Baguio Cathedral (~2 km)', 'Session Road (~2 km)'],
+        food: '<strong>Local Carinderias</strong> – Affordable Filipino meals and nearby cafes.'
+    },
+    'countrywoods': {
+        loc: 'Baguio City',
+        title: 'Countrywoods Homestay',
+        price: '₱2,500 - ₱5,000 / night',
+        priceDetail: 'Premium homestay rates for larger spaces and enhanced amenities.',
+        desc: 'Managed by Countrywoods Realty Corporation, located at 134, Brgy. Scout Barrio, Baguio City[cite: 4]. DOT-accredited[cite: 4].',
+        offerings: 'Spacious areas, forest atmosphere, secure parking, premium beds, and fast Wi-Fi.',
+        attr: ['Camp John Hay (~1 km)', 'PMA (~4 km)', 'Baguio Night Market (~3.5 km)'],
+        food: '<strong>Choco-late de Batirol</strong> – Famous for traditional hot chocolate and Filipino breakfast staples.'
     },
 };
 
